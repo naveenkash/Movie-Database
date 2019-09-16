@@ -1,0 +1,95 @@
+.movies{
+    width: 85%;
+    height: auto;
+    background:#1F1F1F;
+    margin-left: auto;
+}
+.movie_wrapper{
+    width: 83%;
+    height: auto;
+    padding: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin-right: auto;
+    grid-column-gap: 25px;
+    grid-row-gap: 15px;
+}
+.movie_container{
+    width: 100%;
+    height: auto;
+    margin: 15px 0;
+    padding: 3px;
+    border-radius: 7px;
+    overflow: hidden;
+    transition: 0.3s;
+    /* cursor: pointer; */
+
+    background: rgba(40, 40, 40,1);;
+    box-shadow: -4px 9px 25px -6px rgba(0,0,0,.1);
+}
+
+.movie_poster{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    border-radius: 7px;
+    cursor: pointer;
+}
+.movie_poster:hover img{
+    transform: scale(1.07);
+}
+.movie_poster img{
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 7px;
+    transition: 0.3s;
+    display: block;
+}
+.movie_detail{
+    padding: 15px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+.movie_name{
+    width: 70%;
+}
+.movie_name h4{
+    font-size: 14px;
+    /* font-weight: lighter; */
+    font-family: 'Manjari', sans-serif;
+    cursor: pointer;
+    color: white;
+}
+.movie_name p{
+    margin-top: 5px;
+    font-size: 14px;
+    /* font-weight: bold; */
+    color: rgb(224, 224, 224)
+}
+.movie_rating{
+    width: 30%;
+    text-align: right;
+    /* float: right;
+    clear: both; */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.movie_rating h4{
+    font-weight: lighter;
+    font-size: 14px;
+    color: rgb(224, 224, 224)
+}
+.movie_rating i{
+    width: 16px;
+    margin-right: 10px;
+    color: rgb(224, 224, 224);
+}
+.movie_rating i svg{
+    width: 100%;
+    height: auto;
+}

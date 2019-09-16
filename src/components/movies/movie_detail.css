@@ -1,0 +1,135 @@
+.movie_info {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(31, 31, 31, 0.336);
+    z-index: 11;
+}
+
+.movie_info_wrapper {
+    width: 1250px;
+    height: auto;
+    margin: 0px auto;
+    background: #282828;
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+    box-shadow: -4px 9px 25px -6px rgba(0, 0, 0, 0.164);
+}
+
+.close_detail {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    cursor: pointer;
+    width: 25px;
+    height: 30px;
+}
+
+.close_detail svg {
+    width: 20px;
+    height: auto;
+    color: rgb(116, 116, 116);
+}
+
+.movie_info_container {
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: 1fr 0.75fr;
+    /* margin-top: 20px; */
+}
+
+.movie_info_banner {
+    width: 100%;
+    height: 370px;
+    overflow: hidden;
+}
+
+.movie_info_img {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.movie_back_img {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    filter: blur(2px);
+}
+.movie_back_img img{
+    
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.movie_poster_img {
+    
+    width: 150px;
+    height: 150px;
+    border-radius: 50%; position: absolute;
+    left: 30px;
+    bottom: 30px;
+    overflow: hidden;
+}
+.movie_poster_img img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+   
+}
+
+.movie_info_detail {
+    padding: 30px 20px 20px;
+    text-align: left;
+}
+
+.movie_info_detail h1 {
+    font-weight: lighter;
+    font-size: 24px;
+    color: white;
+}
+
+.movie_info_detail p {
+    font-size: 15px;
+    color: rgb(224, 224, 224);
+}
+
+.movie_video {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.movie_video iframe {
+    height: 400px;
+    width: 100%;
+    border: none;
+    outline: none;
+}
+
+.genre_category {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+    width: auto;
+}
+
+.genre_category h5 {
+    color: rgb(224, 224, 224);
+    background: rgb(31, 31, 31);
+    padding: 8px 12px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    border-radius: 2px;
+}
+
+.genre_category h5:not(:first-child) {
+    margin-left: 10px;
+}

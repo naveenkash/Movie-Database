@@ -1,0 +1,79 @@
+.side_navbar{
+    width: 15%;
+    height: 100vh;
+    background: rgb(31, 31, 31);
+    /* background-image:  linear-gradient(45deg, rgba(247, 53, 84, 0.5) 0%, rgba(247, 53, 84, 0.5) 12.5%,rgba(239, 79, 73, 0.5) 12.5%, rgba(239, 79, 73, 0.5) 25%,rgba(231, 105, 63, 0.5) 25%, rgba(231, 105, 63, 0.5) 37.5%,rgba(223, 131, 52, 0.5) 37.5%, rgba(223, 131, 52, 0.5) 50%,rgba(215, 158, 42, 0.5) 50%, rgba(215, 158, 42, 0.5) 62.5%,rgba(207, 184, 31, 0.5) 62.5%, rgba(207, 184, 31, 0.5) 75%,rgba(199, 210, 21, 0.5) 75%, rgba(199, 210, 21, 0.5) 87.5%,rgba(191, 236, 10, 0.5) 87.5%, rgba(191, 236, 10, 0.5) 100%),linear-gradient(135deg, rgb(161, 190, 135) 0%, rgb(161, 190, 135) 12.5%,rgb(166, 174, 126) 12.5%, rgb(166, 174, 126) 25%,rgb(171, 158, 117) 25%, rgb(171, 158, 117) 37.5%,rgb(176, 142, 108) 37.5%, rgb(176, 142, 108) 50%,rgb(181, 126, 99) 50%, rgb(181, 126, 99) 62.5%,rgb(186, 110, 90) 62.5%, rgb(186, 110, 90) 75%,rgb(191, 94, 81) 75%, rgb(191, 94, 81) 87.5%,rgb(196, 78, 72) 87.5%, rgb(196, 78, 72) 100%); */
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* overflow-y: scroll; */
+        
+}
+.side_navbar::-webkit-scrollbar{
+    width: 5px;
+}
+.side_navbar::-webkit-scrollbar-thumb{
+    background: rgb(129, 127, 127);
+    
+}
+.side_navbar::-webkit-scrollbar-thumb:hover{
+    background: rgb(95, 92, 89);
+    
+}
+.side_navbar_wrapper{
+    width: 100%;
+    height:100%;
+    /* padding: 20px; */
+    /* font-family: 'Staatliches', cursive; */
+}
+.side_logo{
+    width: 100%;
+    height: auto;
+    background: rgb(31, 31, 31);
+    padding-top: 35px;
+    padding-bottom: 35px;
+    text-align: center;
+}
+.side_logo h1{
+    font-family: 'Staatliches', cursive;
+    font-weight: 700;
+    letter-spacing: 0.20em;
+    color: white;
+    font-size:30px;
+}
+.side_navbar_container{
+    width: 100%;
+    height:100%;
+    padding: 20px 30px;
+    background: rgb(40,40,40);
+    /* text-align: center; */
+}
+.side_category_head{
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    color:white;
+    font-size:24px;
+    font-family: 'Staatliches', cursive;
+    /* padding-left: 30px; */
+}
+.side_category ul{
+    padding: 0;
+    margin: 0;
+    margin-top: 25px;
+}
+.side_category ul li{
+    list-style: none;
+    padding: 13px ;
+    font-family: 'Staatliches', cursive;
+    width: 100%;
+    margin: 7px 0;
+    font-size: 18px;
+    color:  rgb(224, 224, 224);
+    letter-spacing: 0.05em;
+    /* border-top-left-radius: 0;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px; */
+    /* border-bottom: 1px solid transparent; */
+    /* display: inline-block; */
+    cursor: pointer;
+}

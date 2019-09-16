@@ -1,0 +1,133 @@
+import React, { Component } from "react";
+import "./movie_detail.css";
+import store from "../../store";
+
+export class movie_detail extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      key: "",
+      genres: [],
+      noVideo: false
+    };
+  }
+  componentDidMount() {
+    console.log(this.props);
+    fetch(
+      `https://api.themoviedb.org/3/movie/${this.props.movie.id}/videos?api_key=25050db00f2ae7ba0e6b1631fc0d272f&language=en-US`
+    )
+      .then(res => {
+        return res.json();
+      })
+      .then(data => {
+        console.log(data);
+
+        if (data.results.length <= 0) {
+          this.setState({
+            noVideo: true
+          });
+        }
+
+        if (data.results.length >= 1) {
+          console.log(data.results);
+
+          console.log("running results is not empty");
+
+          this.setState({
+            key: data.results[0].key
+          });
+
+          const GENRES_ARRAY = store.getState().genresIds.genreIds;
+
+          this.props.movie.genre_ids.map(movie_id => {
+            GENRES_ARRAY.map(single_genre => {
+              if (movie_id === single_genre.id) {
+                console.log(single_genre.name);
+                this.setState({
+                  genres: [...this.state.genres, single_genre.name]
+                });
+              }
+            });
+          });
+        }
+        console.log(this.state.genres);
+      });
+  }
+  closeDtail = () => {
+    var closeDetail = false;
+    this.props.closeDetail(closeDetail);
+  };
+  render() {
+    return (
+      <div className="movie_info">
+        
+        <div className="movie_info_wrapper">
+        <div className="movie_info_banner">
+          <div className="movie_info_img">
+            <div className="movie_back_img">
+              <img
+                src={`https://image.tmdb.org/t/p/original/${this.props.movie.backdrop_path}`}
+                alt={this.props.title}
+              />
+            </div>
+            <div className="movie_poster_img">
+              <img
+                src={`https://image.tmdb.org/t/p/original/${this.props.movie.poster_path}`}
+                alt={this.props.title}
+              />
+            </div>
+          </div>
+        </div>
+        
+        <div className="close_detail" onClick={this.closeDtail}>
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              data-prefix="fas"
+              data-icon="times"
+              className="svg-inline--fa fa-times fa-w-11"
+              role="img"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 352 512"
+            >
+              <path
+                fill="currentColor"
+                d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+              ></path>
+            </svg>
+          </div>
+     
+
+        
+          <div className="movie_info_container">
+            <div className="movie_video">
+              {(() => {
+                if (this.state.noVideo) {
+                  return <h1>sorry no video!</h1>;
+                }
+                return (
+                  <iframe
+                    src={`https://www.youtube.com/embed/${this.state.key}`}
+                  ></iframe>
+                );
+              })()}
+            </div>
+            <div className="movie_info_detail">
+              <h1>{this.props.movie.title}</h1>
+              <div className="genre_category">
+                {this.state.genres.map(gen => (
+                  <h5 key={gen}>{gen}</h5>
+                ))}
+              </div>
+
+              <p>{this.props.movie.overview}</p>
+            </div>
+          </div>
+        </div>
+       
+      </div>
+    );
+  }
+}
+
+export default movie_detail;
