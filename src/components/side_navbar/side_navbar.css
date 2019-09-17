@@ -77,3 +77,6 @@
     /* display: inline-block; */
     cursor: pointer;
 }
+.side_category ul li:hover{
+    color: white;
+}

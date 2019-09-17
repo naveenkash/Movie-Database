@@ -1,7 +1,7 @@
-export const addPopularMovies = (callback) => {
+export const all_Movies = (callback,movie) => {
   return dispatch => {
     fetch(
-      "https://api.themoviedb.org/3/movie/popular?api_key=25050db00f2ae7ba0e6b1631fc0d272f&language=en-US&page=1"
+      `https://api.themoviedb.org/3/movie/${movie}?api_key=25050db00f2ae7ba0e6b1631fc0d272f&language=en-US&page=1`
     )
       .then(res => res.json())
       .then(movies => {
@@ -9,6 +9,8 @@ export const addPopularMovies = (callback) => {
           type: "ADD_POPULAR_MOVIES",
           payload: movies.results
         });
+        console.log(movies);
+        
         callback();
       })
       .catch((err)=>{
@@ -33,7 +35,7 @@ export const getVideoUrl = movies => dispatch => {
       })
       .then(video => {
         dispatch({
-          type: "ADD_POPULAR_VIDEOS",
+          type: "ADD_VIDEOS_URL",
           videoPayload: video
         });
       })

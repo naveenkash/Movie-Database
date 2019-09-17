@@ -2,13 +2,18 @@ import React, { Component } from "react";
 import "./movie_detail.css";
 import store from "../../store";
 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 export class movie_detail extends Component {
   constructor(props) {
     super(props);
     this.state = {
       key: "",
       genres: [],
-      noVideo: false
+      noVideo: false,
+      cast:[],
+      crew:[]
     };
   }
   componentDidMount() {
@@ -39,8 +44,8 @@ export class movie_detail extends Component {
 
           const GENRES_ARRAY = store.getState().genresIds.genreIds;
 
-          this.props.movie.genre_ids.map(movie_id => {
-            GENRES_ARRAY.map(single_genre => {
+          this.props.movie.genre_ids.forEach(movie_id => {
+            GENRES_ARRAY.forEach(single_genre => {
               if (movie_id === single_genre.id) {
                 console.log(single_genre.name);
                 this.setState({
@@ -52,12 +57,50 @@ export class movie_detail extends Component {
         }
         console.log(this.state.genres);
       });
+
+      fetch(`https://api.themoviedb.org/3/movie/${this.props.movie.id}/credits?api_key=25050db00f2ae7ba0e6b1631fc0d272f`)
+      .then((res)=>{
+        return res.json();
+      })
+      .then((data)=>{
+        console.log(data);
+        data.cast.forEach((cast)=>{
+          if (this.state.cast.length>=10) {
+            return
+          }
+          this.setState({
+            cast: [...this.state.cast, cast]
+          });
+        })
+        console.log(this.state.cast);
+        data.crew.forEach((crew)=>{
+          if (crew.job==="Director") {
+            this.setState({
+              crew: [...this.state.crew, crew]
+            });
+          }
+        })
+        console.log(this.state.crew);
+        
+      })
   }
   closeDtail = () => {
     var closeDetail = false;
     this.props.closeDetail(closeDetail);
   };
   render() {
+    const settings = {
+      dots: false,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 3,
+      slidesToScroll: 3,
+      draggable: true,
+      // adaptiveHeight: true,
+      arrows: true,
+      slidesPerRow: 1,
+      mobileFirst: true
+    };
     return (
       <div className="movie_info">
         
@@ -103,7 +146,7 @@ export class movie_detail extends Component {
             <div className="movie_video">
               {(() => {
                 if (this.state.noVideo) {
-                  return <h1>sorry no video!</h1>;
+                  return <h1>Sorry no video!</h1>;
                 }
                 return (
                   <iframe
@@ -119,8 +162,34 @@ export class movie_detail extends Component {
                   <h5 key={gen}>{gen}</h5>
                 ))}
               </div>
-
+                  <h4>Overview</h4>
               <p>{this.props.movie.overview}</p>
+                <h4>Cast</h4>
+              <div className="movie_detail_slider">
+              <Slider {...settings}>
+               {
+                 this.state.cast.map((cast)=>(
+                  
+                      <div key={cast.id} className="movie_slider_wrapper">
+                        <img src={`https://image.tmdb.org/t/p/original${cast.profile_path}`} alt=""/>
+                        <div className="movie_overlay">
+                          <h5>{cast.name}</h5>
+                        </div>
+                          {/* <h5>{cast.name}</h5> */}
+                      </div>
+                   
+                 ))
+               }
+               
+              </Slider>
+              </div>
+                  <h4>Director</h4>
+              {
+                this.state.crew.map((crew)=>(
+                  <div className="director">
+                  <h1>{crew.name}</h1></div>
+                ))
+              }
             </div>
           </div>
         </div>

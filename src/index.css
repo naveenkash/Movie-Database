@@ -12,6 +12,7 @@ body{
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
     background: rgba(31, 31, 31);
+    outline: none;
     /* font-family: 'Manjari', sans-serif; */
 }
 /* ::-webkit-scrollbar{

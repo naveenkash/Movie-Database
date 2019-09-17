@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addPopularMovies, genresIds, getVideoUrl } from "../../actions";
+import { all_Movies, genresIds, getVideoUrl } from "../../actions";
 import Genre from "./genre";
 import Slider from "react-slick";
 import "./slider.css";
@@ -45,40 +45,28 @@ export class slider extends Component {
     super(props);
     this.state = {
       genre: this.props.genres,
-      popularMovies:  [],
+      all_Movies:  [],
     };
    
   }
   componentDidMount() {
-    this.props.addPopularMovies(()=>{
+    this.props.all_Movies(()=>{
           var popMovie  = []
-          if (store.getState().popularMovies && store.getState().popularMovies.movies) {
-            popMovie = store.getState().popularMovies.movies
+          if (store.getState().all_Movies && store.getState().all_Movies.movies) {
+            popMovie = store.getState().all_Movies.movies
           
             }
             
           this.setState({
-            popularMovies: popMovie,
+            all_Movies: popMovie,
             genre: store.getState().genresIds.genreIds,
             // videoUrl:true
           });
-    });
+    },'popular');
     this.props.genresIds();
 
   }
 
-  watchTrailer=() =>{
-    
-    this.state.popularMovies.forEach((movie)=>{
-      this.props.moviesVideoUrl.forEach((videoUrl)=>{
-        if (movie.id===videoUrl.id) {
-         var key = videoUrl.results[0].key;
-         
-         this.videoUrlLink.push(key);
-        }
-      })
-    })
-  }
   render() {
     // {this.watchTrailer()}
     const settings = {
@@ -88,7 +76,7 @@ export class slider extends Component {
       slidesToShow: 1,
       slidesToScroll: 1,
       draggable: true,
-      daptiveHeight: false,
+      adaptiveHeight: true,
       arrows: false,
       slidesPerRow: 1,
       mobileFirst: true
@@ -97,7 +85,7 @@ export class slider extends Component {
     return (
       <div className="header-slider">
         <Slider {...settings}>
-          {this.props.popularMovies.slice(0, 10).map(movie => (
+          {this.props.allMovies.slice(0, 10).map(movie => (
             <div key={movie.id} className="header-slide-container">
               <div className="header-slide">
                 <div className="overlay"></div>
@@ -107,7 +95,7 @@ export class slider extends Component {
                 />
                 <div className="banner-info">
                 
-                  <Genre movie={movie} genre={this.props.genres} />
+                  <Genre movie={movie} />
                   {(() => {
                     if (!movie.title) {
                       return null;
@@ -140,13 +128,13 @@ export class slider extends Component {
 }
 
 const mapStateToProps = state => ({
-  popularMovies: state.popularMovies.movies,
+  allMovies: state.all_Movies.movies,
 
   genres: state.genresIds.genreIds,
-  moviesVideoUrl : state.popularMovies.moviesVideoUrl
+  moviesVideoUrl : state.all_Movies.moviesVideoUrl
 });
 
 export default connect(
   mapStateToProps,
-  { addPopularMovies, genresIds, getVideoUrl }
+  { all_Movies, genresIds, getVideoUrl }
 )(slider);

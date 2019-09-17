@@ -2,7 +2,7 @@ const initialState= {
   movies:[],
   moviesVideoUrl:[]
 }
-const popularMovies = (state = initialState, action) => {
+const all_Movies = (state = initialState, action) => {
   
   switch (action.type) {
     case "ADD_POPULAR_MOVIES":
@@ -11,8 +11,7 @@ const popularMovies = (state = initialState, action) => {
         movies:action.payload,
       
       }
-      case "ADD_POPULAR_VIDEOS":
-        console.log('add_popular_videos');
+      case "ADD_VIDEOS_URL":
         return{
           ...state,
           moviesVideoUrl:[...state.moviesVideoUrl,action.videoPayload]
@@ -22,4 +21,4 @@ const popularMovies = (state = initialState, action) => {
       return state;
   }
 };
-export default popularMovies;
+export default all_Movies;

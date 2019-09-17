@@ -5,7 +5,7 @@
 }
 .header-slide{
     width: 100%;
-    height: auto;
+    height: 600px;
     position: relative;
 }
 .slick-slide img{
@@ -13,10 +13,13 @@
     height: 100%;
     object-fit: cover;
 }
-.slick-slide{
+/* .slick-slide{
     height: 600px !important;
-}
-.slick-slide div{
+} */
+/* .slick-slide div{
+    height: 100%;
+} */
+.slick-list{
     height: 100%;
 }
 .overlay{
@@ -90,4 +93,10 @@
 }
 .banner-info h4:not(:first-child){
     margin-left: 10px;
+}
+.slick-list{
+    height: 100% !important;
+}
+.slick-dots li button:before{
+    color:rgb(224,224,224) !important;
 }

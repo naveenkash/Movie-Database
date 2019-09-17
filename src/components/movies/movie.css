@@ -1,11 +1,11 @@
 .movies{
-    width: 85%;
+    width: 1250px;
     height: auto;
     background:#1F1F1F;
-    margin-left: auto;
+    margin-left: 15%;
 }
 .movie_wrapper{
-    width: 83%;
+    width: 100%;
     height: auto;
     padding: 15px;
     display: grid;
@@ -79,6 +79,18 @@
     align-items: center;
     justify-content: flex-end;
 }
+.add_to_waatchlist{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 20px;
+    margin-right: 7px;
+    cursor: pointer;
+}
+.add_to_waatchlist i{
+    width: 100%;
+    height: auto;
+}
 .movie_rating h4{
     font-weight: lighter;
     font-size: 14px;
@@ -89,7 +101,7 @@
     margin-right: 10px;
     color: rgb(224, 224, 224);
 }
-.movie_rating i svg{
+.movie_rating i svg ,.add_to_waatchlist i svg{
     width: 100%;
     height: auto;
 }

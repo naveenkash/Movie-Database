@@ -1,10 +1,29 @@
 import React, { Component } from 'react'
 import './side_navbar.css';
+import { connect } from "react-redux";
+import { all_Movies} from "../../actions";
 export class side_navbar extends Component {
     constructor(props){
         super(props)
 
     }
+    popularMovies=()=>{
+        this.props.all_Movies(()=>{},'popular')
+    }
+    topRatedMovies=()=>{
+        this.props.all_Movies(()=>{},'top_rated')
+    }
+
+    nowPlayingMovies=()=>{
+        this.props.all_Movies(()=>{},'now_playing')
+    }
+    upcomingMovies=()=>{
+        this.props.all_Movies(()=>{},'upcoming')
+    }
+
+    // latestMovies=()=>{
+    //     this.props.all_Movies(()=>{},'latest')
+    // }
     render() {
         return (
             <div className="side_navbar">
@@ -18,11 +37,11 @@ export class side_navbar extends Component {
                   <div className="side_category">
                       <h1 className="side_category_head">Categories</h1>
                       <ul>
-                          <li>Popular</li>
-                          <li>Top Rated</li>
-                          <li>Now Playing</li>
-                          <li>Upcoming</li>
-                          <li>Latest</li>
+                          <li onClick={this.popularMovies} >Popular</li>
+                          <li onClick={this.topRatedMovies}>Top Rated</li>
+                          <li onClick={this.nowPlayingMovies}>Now Playing</li>
+                          <li onClick={this.upcomingMovies}>Upcoming</li>
+                          {/* <li onClick={this.latestMovies}>Latest</li> */}
                       </ul>
                   </div>
               </div>
@@ -32,4 +51,16 @@ export class side_navbar extends Component {
     }
 }
 
-export default side_navbar
+// const mapStateToProps = state => ({
+//     allMovies: state.all_Movies.movies,
+  
+//     genres: state.genresIds.genreIds,
+//     moviesVideoUrl : state.all_Movies.moviesVideoUrl
+//   });
+  
+export default connect(
+    null,
+    { all_Movies }
+  )(side_navbar);
+  
+  

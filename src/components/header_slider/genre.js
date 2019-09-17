@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import store from '../../store'
+import { connect } from "react-redux";
 // function Genre(movie,genre) {
 //         if (movie) {
 //             return null
@@ -19,23 +20,23 @@ export class genre extends Component {
     constructor(props){
         super(props)
         this.state={
-            genre:this.props.genre,
+            genre:this.props.genres,
             movie:this.props.movie,
             arr:[]
         }
         // this.arr =[];
         
 
-        store.subscribe(() => {
+        // store.subscribe(() => {
             // When state will be updated(in our case, when items will be fetched), 
             // we will update local component state and force component to rerender 
             // with new data.
       
-            this.setState({
-                // popularMovies: store.getState().popularMovies.movies,
-                genre:store.getState().genresIds.genreIds
-            }
-            ,()=>{
+            // this.setState({
+            //     // popularMovies: store.getState().popularMovies.movies,
+            //     genre:store.getState().genresIds.genreIds
+            // }
+            // ,()=>{
                 // console.log('on genre refresh');
                if (!this.state.movie) {
                    return;
@@ -57,9 +58,9 @@ export class genre extends Component {
                 this.setState({arr:arr})
                 
                     //  console.log(this.state.genre);
-            }
-            );
-          });
+        //     }
+        //     );
+        //   });
         
     }
     componentDidMount(){
@@ -76,5 +77,14 @@ export class genre extends Component {
         )
     }
 }
-
-export default genre
+const mapStateToProps = state => ({
+    allMovies: state.all_Movies.movies,
+  
+    genres: state.genresIds.genreIds,
+    // moviesVideoUrl : state.all_Movies.moviesVideoUrl
+  });
+export default connect(
+    mapStateToProps,
+    { }
+  )(genre);
+  
