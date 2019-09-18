@@ -18,6 +18,7 @@
     top: 50%;
     transform: translate(0, -50%);
     box-shadow: -4px 9px 25px -6px rgba(0, 0, 0, 0.164);
+    z-index: 12;
     /* overflow-y: scroll; */
 }
 /* .movie_info_wrapper::-webkit-scrollbar{

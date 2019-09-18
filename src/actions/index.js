@@ -1,3 +1,4 @@
+
 export const all_Movies = (callback,movie) => {
   return dispatch => {
     fetch(
@@ -6,7 +7,7 @@ export const all_Movies = (callback,movie) => {
       .then(res => res.json())
       .then(movies => {
         dispatch({
-          type: "ADD_POPULAR_MOVIES",
+          type: "ADD_MOVIES",
           payload: movies.results
         });
         console.log(movies);
@@ -19,7 +20,63 @@ export const all_Movies = (callback,movie) => {
       })
   };
 };
+export const checkAuth =()=>{
+  return dispatch =>{
+  var id =  localStorage.getItem('session_id');
+  if (id) {
+    dispatch({
+      type: "CHECK_AUTH",
+      payload:true
+    })
+    return
+  }else{
+    dispatch({
+      type: "CHECK_AUTH",
+      payload:false
+    })
+  }
+  }
+}
+export const slider_Movies = () => {
+  return dispatch => {
+    fetch(
+      `https://api.themoviedb.org/3/movie/popular?api_key=25050db00f2ae7ba0e6b1631fc0d272f&language=en-US&page=1`
+    )
+      .then(res => res.json())
+      .then(movies => {
+        dispatch({
+          type: "ADD_MOVIES_TO_SLIDER",
+          payload: movies.results
+        });
+        console.log(movies);
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+  };
+};
+export const account_Details = (type,typeofProgramm,session)=>{
+  return dispatch => {
+    fetch(
+      `https://api.themoviedb.org/3/account/{account_id}/${type}/${typeofProgramm}?api_key=25050db00f2ae7ba0e6b1631fc0d272f&session_id=${session}&sort_by=created_at.asc&language=en-US&page=1`
+    )
+      .then(res => res.json())
+      .then(movies => {
 
+        if (movies.results.length<=0) {
+          return
+        }
+        dispatch({
+          type: "ADD_ACCOUNT_DETAIL",
+          payload: movies.results
+        });
+        console.log(movies);
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+  };
+}
 export const getVideoUrl = movies => dispatch => {
   if (movies.length <= 0) {
     return;

@@ -52,10 +52,11 @@
     height: auto;
     display: flex;
     flex-wrap: wrap;
+    position: relative;
     align-items: flex-end;
 }
 .movie_name{
-    width: 70%;
+    width: 100%;
 }
 .movie_name h4{
     font-size: 14px;
@@ -71,25 +72,28 @@
     color: rgb(224, 224, 224)
 }
 .movie_rating{
-    width: 30%;
+    width: 40%;
     text-align: right;
     /* float: right;
     clear: both; */
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    position:absolute;
+    right: 15px;
+    bottom: 8px;
 }
 .add_to_waatchlist{
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    width: 20px;
+    width: 12px;
     margin-right: 7px;
-    cursor: pointer;
 }
 .add_to_waatchlist i{
     width: 100%;
     height: auto;
+    margin: 0 !important;
 }
 .movie_rating h4{
     font-weight: lighter;
@@ -100,8 +104,12 @@
     width: 16px;
     margin-right: 10px;
     color: rgb(224, 224, 224);
+    cursor: pointer;
 }
 .movie_rating i svg ,.add_to_waatchlist i svg{
     width: 100%;
     height: auto;
+}
+.movie_rating i:hover{
+    color: white;
 }

@@ -1,10 +1,12 @@
 import all_Movies from './movies';
 import add_Genres from './genereIds'
-import add_Token from './addsessiontoke'
+import auth from './auth'
 import {combineReducers} from 'redux';
+console.log(auth);
+
 const allReducers = combineReducers({
     all_Movies:all_Movies,
     genresIds:add_Genres,
-    token:add_Token
+    auth:auth,
 })
 export default allReducers

@@ -84,7 +84,9 @@ export class movie_detail extends Component {
         
       })
   }
-  closeDtail = () => {
+  closeDtail = (e) => {
+    e.stopPropagation();
+    
     var closeDetail = false;
     this.props.closeDetail(closeDetail);
   };

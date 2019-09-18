@@ -1,20 +1,30 @@
 const initialState= {
   movies:[],
-  moviesVideoUrl:[]
+  moviesVideoUrl:[],
+  slider_Movies:[]
 }
 const all_Movies = (state = initialState, action) => {
   
   switch (action.type) {
-    case "ADD_POPULAR_MOVIES":
+    case "ADD_MOVIES":
       return {
         ...state,
         movies:action.payload,
       
       }
-      case "ADD_VIDEOS_URL":
+      case "ADD_ACCOUNT_DETAIL":
+        console.log(action.payload);
+        
+          return {
+            ...state,
+            movies:action.payload,
+        
+          
+          }
+      case 'ADD_MOVIES_TO_SLIDER':
         return{
           ...state,
-          moviesVideoUrl:[...state.moviesVideoUrl,action.videoPayload]
+          slider_Movies:action.payload
         }
         
     default:

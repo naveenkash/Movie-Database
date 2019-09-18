@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { all_Movies, genresIds, getVideoUrl } from "../../actions";
+import { slider_Movies ,genresIds} from "../../actions";
 import Genre from "./genre";
 import Slider from "react-slick";
 import "./slider.css";
@@ -45,25 +45,13 @@ export class slider extends Component {
     super(props);
     this.state = {
       genre: this.props.genres,
-      all_Movies:  [],
+      slider_Movies:  [],
     };
    
   }
   componentDidMount() {
-    this.props.all_Movies(()=>{
-          var popMovie  = []
-          if (store.getState().all_Movies && store.getState().all_Movies.movies) {
-            popMovie = store.getState().all_Movies.movies
-          
-            }
-            
-          this.setState({
-            all_Movies: popMovie,
-            genre: store.getState().genresIds.genreIds,
-            // videoUrl:true
-          });
-    },'popular');
     this.props.genresIds();
+    this.props.slider_Movies();
 
   }
 
@@ -76,6 +64,8 @@ export class slider extends Component {
       slidesToShow: 1,
       slidesToScroll: 1,
       draggable: true,
+      initialSlide:1,
+      lazyLoad:'onDemand',
       adaptiveHeight: true,
       arrows: false,
       slidesPerRow: 1,
@@ -95,7 +85,7 @@ export class slider extends Component {
                 />
                 <div className="banner-info">
                 
-                  <Genre movie={movie} />
+                  <Genre movie={movie} genres={this.props.genres} />
                   {(() => {
                     if (!movie.title) {
                       return null;
@@ -128,13 +118,11 @@ export class slider extends Component {
 }
 
 const mapStateToProps = state => ({
-  allMovies: state.all_Movies.movies,
-
+  allMovies: state.all_Movies.slider_Movies,
   genres: state.genresIds.genreIds,
-  moviesVideoUrl : state.all_Movies.moviesVideoUrl
 });
 
 export default connect(
   mapStateToProps,
-  { all_Movies, genresIds, getVideoUrl }
+  { slider_Movies, genresIds }
 )(slider);

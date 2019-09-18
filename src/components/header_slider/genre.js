@@ -20,50 +20,31 @@ export class genre extends Component {
     constructor(props){
         super(props)
         this.state={
-            genre:this.props.genres,
+            genres:this.props.genres,
             movie:this.props.movie,
             arr:[]
         }
-        // this.arr =[];
-        
-
-        // store.subscribe(() => {
-            // When state will be updated(in our case, when items will be fetched), 
-            // we will update local component state and force component to rerender 
-            // with new data.
-      
-            // this.setState({
-            //     // popularMovies: store.getState().popularMovies.movies,
-            //     genre:store.getState().genresIds.genreIds
-            // }
-            // ,()=>{
-                // console.log('on genre refresh');
-               if (!this.state.movie) {
-                   return;
-               }else{
-                // console.log(this.state.movie);
-                // console.log(this.state.genre);
-                var movie_Genre_List = this.state.movie.genre_ids;
-                if (movie_Genre_List.length>5) {
-                    movie_Genre_List.splice(0,5);
-                }
-               }
-                var arr = []
-                this.state.genre.forEach(function(singleObject){
-                    // console.log(this.state.popularMovies)
-                    if(movie_Genre_List.includes(singleObject.id)){
-                        arr.push(singleObject.name);
-                    }
-                })
-                this.setState({arr:arr})
-                
-                    //  console.log(this.state.genre);
-        //     }
-        //     );
-        //   });
-        
     }
     componentDidMount(){
+        console.log('genre running');
+        
+        if (!this.props.movie) {
+            return;
+        }else{
+         var movie_Genre_List = this.props.movie.genre_ids;
+         if (movie_Genre_List.length>5) {
+             movie_Genre_List.splice(0,5);
+         }
+         
+        }
+         var arr = []
+         this.state.genres.forEach(function(singleObject){
+             if(movie_Genre_List.includes(singleObject.id)){
+                 arr.push(singleObject.name);
+             }
+         })
+         this.setState({arr:arr})
+         
     }
   
     render() {
@@ -77,14 +58,14 @@ export class genre extends Component {
         )
     }
 }
-const mapStateToProps = state => ({
-    allMovies: state.all_Movies.movies,
+// const mapStateToProps = state => ({
+//     allMovies: state.all_Movies.slider_Movies,
   
-    genres: state.genresIds.genreIds,
-    // moviesVideoUrl : state.all_Movies.moviesVideoUrl
-  });
+//     genres: state.genresIds.genreIds,
+//     // moviesVideoUrl : state.all_Movies.moviesVideoUrl
+//   });
 export default connect(
-    mapStateToProps,
+    null,
     { }
   )(genre);
   
