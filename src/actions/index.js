@@ -1,25 +1,29 @@
 
-export const all_Movies = (callback,movie) => {
+export const all_Movies = (movie,page_number) => {
   return dispatch => {
     fetch(
-      `https://api.themoviedb.org/3/movie/${movie}?api_key=25050db00f2ae7ba0e6b1631fc0d272f&language=en-US&page=1`
+      `https://api.themoviedb.org/3/movie/${movie}?api_key=25050db00f2ae7ba0e6b1631fc0d272f&language=en-US&page=${page_number}`
     )
       .then(res => res.json())
       .then(movies => {
         dispatch({
           type: "ADD_MOVIES",
-          payload: movies.results
+          payload: movies
         });
-        console.log(movies);
-        
-        callback();
       })
       .catch((err)=>{
-        console.log(err);
-        callback();
+        alert(err)
       })
   };
 };
+export const movie_type =(type)=>{
+  return dispatch=>{
+    dispatch({
+      type:'ADD_TYPE',
+      payload:type
+    })
+  }
+}
 export const checkAuth =()=>{
   return dispatch =>{
   var id =  localStorage.getItem('session_id');

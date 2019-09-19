@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./side_navbar.css";
 import { connect } from "react-redux";
-import { all_Movies, account_Details, checkAuth } from "../../actions";
+import { all_Movies, account_Details, checkAuth ,movie_type} from "../../actions";
 import store from "../../store";
 
 export class side_navbar extends Component {
@@ -27,17 +27,21 @@ export class side_navbar extends Component {
   }
 
   popularMovies = () => {
-    this.props.all_Movies(() => {}, "popular");
+    this.props.all_Movies("popular",1);
+    this.props.movie_type('popular');
   };
   topRatedMovies = () => {
-    this.props.all_Movies(() => {}, "top_rated");
+    this.props.all_Movies("top_rated",1)
+    this.props.movie_type('top_rated');
   };
 
   nowPlayingMovies = () => {
-    this.props.all_Movies(() => {}, "now_playing");
+    this.props.all_Movies("now_playing",1);
+    this.props.movie_type('now_playing');
   };
   upcomingMovies = () => {
-    this.props.all_Movies(() => {}, "upcoming");
+    this.props.all_Movies("upcoming",1);
+    this.props.movie_type('upcoming');
   };
 
   getWatchList = () => {
@@ -123,5 +127,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-  { all_Movies, account_Details, checkAuth }
+  { all_Movies, account_Details, checkAuth,movie_type }
 )(side_navbar);

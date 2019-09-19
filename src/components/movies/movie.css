@@ -113,3 +113,9 @@
 .movie_rating i:hover{
     color: white;
 }
+#rating{
+    color: yellow;
+}
+/* #watchlist{
+    color: #4293f5;
+} */

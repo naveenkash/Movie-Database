@@ -1,7 +1,8 @@
 const initialState= {
   movies:[],
   moviesVideoUrl:[],
-  slider_Movies:[]
+  slider_Movies:[],
+  type:''
 }
 const all_Movies = (state = initialState, action) => {
   
@@ -9,8 +10,9 @@ const all_Movies = (state = initialState, action) => {
     case "ADD_MOVIES":
       return {
         ...state,
-        movies:action.payload,
-      
+        movies:action.payload.results,
+        total_pages:action.payload.total_pages,
+        current_page:action.payload.page
       }
       case "ADD_ACCOUNT_DETAIL":
         console.log(action.payload);
@@ -26,6 +28,11 @@ const all_Movies = (state = initialState, action) => {
           ...state,
           slider_Movies:action.payload
         }
+        case 'ADD_TYPE':
+          return{
+            ...state,
+            type:action.payload
+          }
         
     default:
       return state;

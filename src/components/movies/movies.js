@@ -1,25 +1,27 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
-import { all_Movies} from "../../actions";
-// import store from "../../store";
+import { all_Movies,movie_type} from "../../actions";
+import store from "../../store";
 import './movie.css';
+import Pagination from './pagination'
 export class movies extends Component {
     constructor(props){
         super(props)
         this.state={
             movies:this.props.movies,
+            account_state:[],
             // Session_Id :localStorage.getItem('session_id')
         }
         // var mov = []
-        // store.subscribe(()=>{
-        //     if (store.getState().popularMovies && store.getState().popularMovies.movies) {
-        //         mov= store.getState().popularMovies.movies
-        //     }
-        //     this.setState({movies:mov});
-        // })
+        store.subscribe(()=>{
+            if (store.getState().all_Movies.movies.length>=1) {
+                this.setState({movies:store.getState().all_Movies.movies}) 
+            }
+        })
     }
     componentDidMount() {
-        this.props.all_Movies(()=>{},'popular');
+        this.props.all_Movies('popular',1);
+        this.props.movie_type('popular');
     }
     
     SeeDeatil=(movie)=>{
@@ -27,7 +29,8 @@ export class movies extends Component {
        this.props.detail(showMovieDetail)
        this.props.movie(movie)
     }
-    addToWatchList=(movie)=>{
+    addToWatchList=(e,movie)=>{
+        e.target.style.color="#4293f5";
         var Session_Id = localStorage.getItem('session_id');
         if (!Session_Id) {
             return alert('Login Before Adding')
@@ -53,7 +56,10 @@ export class movies extends Component {
             console.log(err);
         })
     }
-    addToFavorite=(movie)=>{
+    addToFavorite=(e,movie)=>{
+        e.target.style.color="red"
+        
+        
         var Session_Id = localStorage.getItem('session_id');
         if (!Session_Id) {
             return alert('Login Before Adding')
@@ -97,11 +103,11 @@ export class movies extends Component {
                                </div>
                                <div className="movie_rating">
 
-                                   <i title="Add To Favorite" onClick={()=>{this.addToFavorite(movie)}} ><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="heart" className="svg-inline--fa fa-heart fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"></path></svg></i>
-                                <div onClick={()=>{this.addToWatchList(movie)}} className="add_to_waatchlist">
-                                    <i title="Add To Watchlist"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bookmark" className="svg-inline--fa fa-bookmark fa-w-12" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M0 512V48C0 21.49 21.49 0 48 0h288c26.51 0 48 21.49 48 48v464L192 400 0 512z"></path></svg></i></div> 
+                                   <i   data-favorite={movie.id} title="Add To Favorite" onClick={(e)=>{this.addToFavorite(e,movie)}} ><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="heart" className="svg-inline--fa fa-heart fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"></path></svg></i>
+                                <div onClick={(e)=>{this.addToWatchList(e,movie)}} className="add_to_waatchlist">
+                                    <i  data-watchlist={movie.id} id="watchlist" title="Add To Watchlist"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bookmark" className="svg-inline--fa fa-bookmark fa-w-12" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M0 512V48C0 21.49 21.49 0 48 0h288c26.51 0 48 21.49 48 48v464L192 400 0 512z"></path></svg></i></div> 
 
-                                     <i title="Rating"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg></i> 
+                                     <i id="rating" title="Rating"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg></i> 
                                      <h4>{movie.vote_average}</h4>
                                </div>
                            </div>
@@ -109,14 +115,17 @@ export class movies extends Component {
                   
                   ))
               } 
+              
                </div>
+               <Pagination />
             </div>
         )
     }
 }
 const mapStateToProps = state => ({
     movies: state.all_Movies.movies,
+    pages:state.all_Movies.total_pages,
   });
   
-export default connect(mapStateToProps,{all_Movies})(movies);
+export default connect(mapStateToProps,{all_Movies,movie_type})(movies);
 // export default ;
