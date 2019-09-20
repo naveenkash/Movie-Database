@@ -87,7 +87,7 @@
     width: 100%;
     margin: 7px 0;
     font-size: 18px;
-    color:  rgb(224, 224, 224);
+    color:  rgb(187, 187, 187);
     letter-spacing: 0.05em;
     /* border-top-left-radius: 0;
     border-top-right-radius: 50px;
@@ -96,6 +96,18 @@
     /* display: inline-block; */
     cursor: pointer;
 }
-.side_category ul li:hover{
+#pop{
     color: white;
+}
+.side_category ul li:hover{
+    color: white !important;
+}
+#mov{
+    overflow: hidden;
+    transition: 0.3s;
+
+}
+#acc{
+    overflow: hidden;
+    transition: 0.3s;
 }

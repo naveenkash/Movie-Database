@@ -19,8 +19,9 @@ const all_Movies = (state = initialState, action) => {
         
           return {
             ...state,
-            movies:action.payload,
-        
+            movies:action.payload.results,
+            total_pages:action.payload.total_pages,
+            current_page:action.payload.page
           
           }
       case 'ADD_MOVIES_TO_SLIDER':

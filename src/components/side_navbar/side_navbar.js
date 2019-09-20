@@ -1,64 +1,50 @@
 import React, { Component } from "react";
 import "./side_navbar.css";
 import { connect } from "react-redux";
-import { all_Movies, account_Details, checkAuth ,movie_type} from "../../actions";
-import store from "../../store";
+import {
+  all_Movies,
+  account_Details,
+  checkAuth,
+  movie_type
+} from "../../actions";
 
 export class side_navbar extends Component {
   constructor(props) {
     super(props);
     this.state = { showAccount: true, showCat: true, auth: this.props.auth };
-     store.subscribe(() => {
-      if (store.getState().auth) {
-        this.setState({ auth: this.props.auth });
-      }
-    });
-   ;
+
+    this.h = true;
   }
 
   componentDidMount() {
-    this.props.checkAuth()
-    // if (localStorage.getItem("session_id")) {
-    //   this.setState({ auth: true });
-    // } else {
-    //   this.setState({ auth: false });
-    // } 
-   
+    this.props.checkAuth();
   }
 
-  popularMovies = () => {
-    this.props.all_Movies("popular",1);
-    this.props.movie_type('popular');
+  getDeatil = (e, value) => {
+    var side_li = document.querySelectorAll(".side_link");
+    for (let i = 0; i < side_li.length; i++) {
+      const element = side_li[i];
+      element.style.color = "rgb(187, 187, 187)";
+    }
+    // document.querySelectorAll('li').style.color="rgb(187, 187, 187)"
+    this.props.all_Movies(value, 1);
+    this.props.movie_type(value);
+    e.target.style.color = "white";
   };
-  topRatedMovies = () => {
-    this.props.all_Movies("top_rated",1)
-    this.props.movie_type('top_rated');
-  };
-
-  nowPlayingMovies = () => {
-    this.props.all_Movies("now_playing",1);
-    this.props.movie_type('now_playing');
-  };
-  upcomingMovies = () => {
-    this.props.all_Movies("upcoming",1);
-    this.props.movie_type('upcoming');
-  };
-
-  getWatchList = () => {
+  getAccountDetail = (e, value, type) => {
+    var side_li = document.querySelectorAll(".side_link");
+    for (let i = 0; i < side_li.length; i++) {
+      const element = side_li[i];
+      element.style.color = "rgb(187, 187, 187)";
+    }
     var session_id = localStorage.getItem("session_id");
-    this.props.account_Details("watchlist", "movies", session_id);
-  };
-  getFavorite = () => {
-    var session_id = localStorage.getItem("session_id");
-    this.props.account_Details("favorite", "movies", session_id);
-  };
-  getRated = () => {
-    var session_id = localStorage.getItem("session_id");
-    this.props.account_Details("rated", "movies", session_id);
+    this.props.account_Details(value, type, session_id);
+    e.target.style.color = "white";
   };
   hideAcc = e => {
     e.preventDefault();
 
+    // document.getElementById('acc').style.height="0px";
     this.setState({ showAccount: !this.state.showAccount });
   };
   hideCategory = e => {
@@ -85,10 +71,39 @@ export class side_navbar extends Component {
                 }
                 return (
                   <ul>
-                    <li onClick={this.popularMovies}>Popular</li>
-                    <li onClick={this.topRatedMovies}>Top Rated</li>
-                    <li onClick={this.nowPlayingMovies}>Now Playing</li>
-                    <li onClick={this.upcomingMovies}>Upcoming</li>
+                    <li
+                      className="side_link"
+                      id="pop"
+                      onClick={e => {
+                        this.getDeatil(e, "popular");
+                      }}
+                    >
+                      Popular
+                    </li>
+                    <li
+                      className="side_link"
+                      onClick={e => {
+                        this.getDeatil(e, "top_rated");
+                      }}
+                    >
+                      Top Rated
+                    </li>
+                    <li
+                      className="side_link"
+                      onClick={e => {
+                        this.getDeatil(e, "now_playing");
+                      }}
+                    >
+                      Now Playing
+                    </li>
+                    <li
+                      className="side_link"
+                      onClick={e => {
+                        this.getDeatil(e, "upcoming");
+                      }}
+                    >
+                      Upcoming
+                    </li>
                     {/* <li onClick={this.latestMovies}>Latest</li> */}
                   </ul>
                 );
@@ -105,9 +120,23 @@ export class side_navbar extends Component {
                 } else {
                   return (
                     <ul>
-                      <li onClick={this.getWatchList}>Watchlist</li>
-                      <li onClick={this.getFavorite}>Favorite</li>
-                      <li onClick={this.getRated}>Rated</li>
+                      <li
+                        className="side_link"
+                        onClick={e => {
+                          this.getAccountDetail(e, "watchlist", "movies");
+                        }}
+                      >
+                        Watchlist
+                      </li>
+                      <li
+                        className="side_link"
+                        onClick={e => {
+                          this.getAccountDetail(e, "favorite", "movies");
+                        }}
+                      >
+                        Favorite
+                      </li>
+                      {/* <li className="side_link" onClick={(e)=>{this.getAccountDetail(e,'rated','movies')}}>Rated</li> */}
                     </ul>
                   );
                 }
@@ -121,11 +150,10 @@ export class side_navbar extends Component {
 }
 
 const mapStateToProps = state => ({
-    auth: state.auth,
-
-  });
+  auth: state.auth
+});
 
 export default connect(
-    mapStateToProps,
-  { all_Movies, account_Details, checkAuth,movie_type }
+  mapStateToProps,
+  { all_Movies, account_Details, checkAuth, movie_type }
 )(side_navbar);

@@ -23,7 +23,7 @@ export class movies extends Component {
         this.props.all_Movies('popular',1);
         this.props.movie_type('popular');
     }
-    
+
     SeeDeatil=(movie)=>{
     var showMovieDetail = true;
        this.props.detail(showMovieDetail)
@@ -117,13 +117,23 @@ export class movies extends Component {
               } 
               
                </div>
-               <Pagination />
+               
+                {(() => {
+                if (!this.props.pages) {
+                    return null
+                }else if(this.props.pages<=1){
+                    return null
+                } else {
+                    return(<Pagination/>) 
+                }
+              })()}
             </div>
         )
     }
 }
 const mapStateToProps = state => ({
     movies: state.all_Movies.movies,
+    // pages: state.all_Movies.total_pages,
     pages:state.all_Movies.total_pages,
   });
   

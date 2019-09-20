@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./navbar.css";
-import { checkAuth } from "../../actions";
+import { checkAuth,addSessionId } from "../../actions";
 import { connect } from "react-redux";
 export class navbar extends Component {
   constructor(props) {
@@ -31,7 +31,7 @@ export class navbar extends Component {
   scroll = () => {
     if (this.state.scrolled) {
       return {
-        background: "rgba(40, 40, 40,1)"
+        background: "rgba(40, 40, 40,1)",
         // boxShadow: '0px 3px 5px 0px rgba(176, 176, 176, 0.19)'
       };
     }
@@ -72,6 +72,23 @@ export class navbar extends Component {
         alert(err);
       });
   };
+  requestGuestToken=()=>{
+    
+    fetch(
+      "https://api.themoviedb.org/3/authentication/guest_session/new?api_key=25050db00f2ae7ba0e6b1631fc0d272f"
+    )
+      .then(res => {
+        return res.json();
+      })
+      .then(data => {
+        console.log(data);
+        localStorage.setItem('session_id',data.guest_session_id);
+        this.props.checkAuth();
+      })
+      .catch(err => {
+        alert(err);
+      });
+  }
   logOut = () => {
     fetch(
       "https://api.themoviedb.org/3/authentication/session?api_key=25050db00f2ae7ba0e6b1631fc0d272f",
@@ -91,7 +108,7 @@ export class navbar extends Component {
       .then(data => {
         console.log(data);
         localStorage.removeItem("session_id");
-        this.setState({ session_id: "" });
+        // this.setState({ session_id: "" });
         this.props.checkAuth();
       })
       .catch(err => {
@@ -104,7 +121,7 @@ export class navbar extends Component {
         <div className="navbar-wrapper">
           <div className="navbar-container">
             <ul>
-              {(() => {
+              {/* {(() => {
                 if (this.state.session_id) {
                   return null;
                 }
@@ -113,9 +130,9 @@ export class navbar extends Component {
                     <span style={this.scrollLink()}>Log In</span>
                   </li>
                 );
-              })()}
+              })()} */}
               {(() => {
-                if (this.state.session_id) {
+                if (this.props.auth) {
                   return null;
                 }
                 return (
@@ -127,18 +144,18 @@ export class navbar extends Component {
                 );
               })()}
               {(() => {
-                if (this.state.session_id) {
+                if (this.props.auth) {
                   return null;
                 }
                 return (
                   <li style={this.ScrollWrap()}>
-                    <span style={this.scrollLink()}>Guest</span>
+                    <span onClick={this.requestGuestToken} style={this.scrollLink()}>Guest Sign Up</span>
                   </li>
                 );
               })()}
 
               {(() => {
-                if (!this.state.session_id) {
+                if (!this.props.auth) {
                   return null;
                 }
                 return (
@@ -156,8 +173,10 @@ export class navbar extends Component {
     );
   }
 }
-
+const mapStateToProps = state => ({
+  auth:state.auth
+});
 export default connect(
-  null,
-  { checkAuth }
+  mapStateToProps,
+  { checkAuth,addSessionId }
 )(navbar);

@@ -1,7 +1,7 @@
 import React from "react";
 import "./pagination.css";
 import { connect } from "react-redux";
-import store from "../../store";
+// import store from "../../store";
 import { all_Movies } from "../../actions";
 export class Pagination extends React.Component {
   constructor(props) {
@@ -9,88 +9,76 @@ export class Pagination extends React.Component {
     this.state = {
       one: 0,
       last: 10,
-      total_pages: this.props.pages,
       pageNumber: [],
       slicedPage: []
     };
-    store.subscribe(() => {
-      if (store.getState().all_Movies.total_pages) {
-        console.log(store.getState().all_Movies.total_pages);
-        this.setState(
-          { total_pages: store.getState().all_Movies.total_pages },
-          () => {
-            // let page = [];
-            for (let i = 1; i < this.state.total_pages; i++) {
-              this.setState(
-                prevState => ({ pageNumber: [...prevState.pageNumber, i] }),
-                () => {
-                  // page.push(this.state.pageNumber[i])
-                  // console.log(page);
 
-                  this.setState({
-                    one:
-                      this.state.pageNumber.slice(
-                        this.state.one,
-                        this.state.last
-                      ).length -
-                      this.state.pageNumber.slice(
-                        this.state.one,
-                        this.state.last
-                      ).length
-                  });
-                  this.setState({
+  }
+  componentDidMount(){
+    if (this.props.pages) {
+      
+          for (let i = 1; i < this.props.pages; i++) {
+            this.setState(
+              prevState => ({ pageNumber: [...prevState.pageNumber, i] }),
+              () => {
+                if (this.state.pageNumber.length<10) {
+                  this.setState({slicedPage: this.state.pageNumber.slice(
+                    this.state.one,
+                    this.state.pageNumber.length
+                  )})
+                  return
+                }
+                this.setState({
+                  one:
+                    this.state.pageNumber.slice(
+                      this.state.one,
+                      this.state.last
+                    ).length -
+                    this.state.pageNumber.slice(
+                      this.state.one,
+                      this.state.last
+                    ).length,
                     last: this.state.pageNumber.slice(
                       this.state.one,
                       this.state.last
-                    ).length
-                  });
-                  this.setState({
+                    ).length,
                     slicedPage: this.state.pageNumber.slice(
                       this.state.one,
                       this.state.last
                     )
-                  });
-                  console.log(this.state.one, this.state.last);
-                }
-              );
-            }
+                });
+                console.log(this.state.one, this.state.last);
+              }
+            );
           }
-        );
-      }
-    });
-  }
-  // fetchMovie=()=>{
-
-  // }
-  loadPage = number => {
-    if (this.state.slicedPage.length === this.state.total_pages) {
-      return;
     }
-    let halfPage = Math.round(this.state.one + this.state.last) / 2;
+  }
+  loadPage = number => {
+    let halfPage = Math.floor(this.state.one + this.state.last) / 2;
     if (number >= halfPage) {
-      this.setState({ one: (this.state.one += 5) });
-      this.setState({ last: (this.state.last += 5) });
-      console.log(this.state.one, this.state.last);
-      this.setState({
-        slicedPage: this.state.pageNumber.slice(this.state.one, this.state.last)
+      if (number>=this.props.pages) {
+        return
+      }
+      this.setState({ one: (this.state.one += 5),last: (this.state.last += 5)},()=>{
+        if (this.state.slicedPage[this.state.slicedPage.length-1]>=this.props.pages) {
+          console.log(this.state.slicedPage[this.state.slicedPage.length-1]);
+          return
+        }
+        this.setState({
+          slicedPage: this.state.pageNumber.slice(this.state.one, this.state.last)
+        });
+        this.props.all_Movies(this.props.type, number);
       });
-      this.props.all_Movies(this.props.type, number);
-    //   return;
-    } else if (number <= halfPage) {
-      this.props.all_Movies(this.props.type, number);
       
+    } else if (number < halfPage) {
       if (this.state.one <= 0) {
         return;
       }
-      console.log(number, halfPage);
-
-      this.setState({ one: (this.state.one -= 5) });
-      this.setState({ last: (this.state.last -= 5) });
-      console.log(this.state.one, this.state.last);
+      this.setState({ one: (this.state.one -= 5),last: (this.state.last -= 5) });
       this.setState({
         slicedPage: this.state.pageNumber.slice(this.state.one, this.state.last)
       });
-    //   return;
+      this.props.all_Movies(this.props.type, number);
     }
   };
   render() {
@@ -114,9 +102,8 @@ export class Pagination extends React.Component {
   }
 }
 const mapStateToProps = state => ({
-  // movies: state.all_Movies.movies,
-  pages: state.all_Movies.total_pages,
-  type: state.all_Movies.type
+  type: state.all_Movies.type,
+  pages:state.all_Movies.total_pages
 });
 export default connect(
   mapStateToProps,

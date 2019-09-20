@@ -1,6 +1,6 @@
 const  auth=false
   
-  const add_Genres = (state = auth, action) => {
+  const add_auth = (state = auth, action) => {
     switch (action.type) {
       case "CHECK_AUTH":
         return  action.payload
@@ -9,5 +9,5 @@ const  auth=false
         return state;
     }
   };
-  export default add_Genres;
+  export default add_auth;
   

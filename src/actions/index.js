@@ -72,7 +72,7 @@ export const account_Details = (type,typeofProgramm,session)=>{
         }
         dispatch({
           type: "ADD_ACCOUNT_DETAIL",
-          payload: movies.results
+          payload: movies
         });
         console.log(movies);
       })
