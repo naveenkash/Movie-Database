@@ -1,8 +1,10 @@
+// import {api_key } from '../process.env'
+var api_key = process.env.REACT_APP_API_KEY
 
 export const all_Movies = (movie,page_number) => {
   return dispatch => {
     fetch(
-      `https://api.themoviedb.org/3/movie/${movie}?api_key=25050db00f2ae7ba0e6b1631fc0d272f&language=en-US&page=${page_number}`
+      `https://api.themoviedb.org/3/movie/${movie}?api_key=${api_key}&language=en-US&page=${page_number}`
     )
       .then(res => res.json())
       .then(movies => {
@@ -44,7 +46,7 @@ export const checkAuth =()=>{
 export const slider_Movies = () => {
   return dispatch => {
     fetch(
-      `https://api.themoviedb.org/3/movie/popular?api_key=25050db00f2ae7ba0e6b1631fc0d272f&language=en-US&page=1`
+      `https://api.themoviedb.org/3/movie/popular?api_key=${api_key}&language=en-US&page=1`
     )
       .then(res => res.json())
       .then(movies => {
@@ -61,7 +63,7 @@ export const slider_Movies = () => {
 export const account_Details = (type,typeofProgramm,session)=>{
   return dispatch => {
     fetch(
-      `https://api.themoviedb.org/3/account/{account_id}/${type}/${typeofProgramm}?api_key=25050db00f2ae7ba0e6b1631fc0d272f&session_id=${session}&sort_by=created_at.asc&language=en-US&page=1`
+      `https://api.themoviedb.org/3/account/{account_id}/${type}/${typeofProgramm}?api_key=${api_key}&session_id=${session}&sort_by=created_at.asc&language=en-US&page=1`
     )
       .then(res => res.json())
       .then(movies => {
@@ -88,7 +90,7 @@ export const getVideoUrl = movies => dispatch => {
   for (let i = 0; i < movies.length; i++) {
     const element = movies[i];
     fetch(
-      `https://api.themoviedb.org/3/movie/${element.id}/videos?api_key=25050db00f2ae7ba0e6b1631fc0d272f&language=en-US`
+      `https://api.themoviedb.org/3/movie/${element.id}/videos?api_key=${api_key}&language=en-US`
     )
       .then(res => {
         return res.json();
@@ -108,7 +110,7 @@ export const getVideoUrl = movies => dispatch => {
 export const genresIds = () => dispatch => {
 
   fetch(
-    "https://api.themoviedb.org/3/genre/movie/list?api_key=25050db00f2ae7ba0e6b1631fc0d272f&language=en-US"
+    `https://api.themoviedb.org/3/genre/movie/list?api_key=${api_key}&language=en-US`
   )
     .then(res => res.json())
     .then(genreIds =>

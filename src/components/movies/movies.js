@@ -22,6 +22,7 @@ export class movies extends Component {
     componentDidMount() {
         this.props.all_Movies('popular',1);
         this.props.movie_type('popular');
+        
     }
 
     SeeDeatil=(movie)=>{

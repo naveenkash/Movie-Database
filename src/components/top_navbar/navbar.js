@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "./navbar.css";
 import { checkAuth,addSessionId } from "../../actions";
 import { connect } from "react-redux";
+// import {api_key } from '../../process.env'
+var api_key = process.env.REACT_APP_API_KEY
 export class navbar extends Component {
   constructor(props) {
     super(props);
@@ -53,7 +55,7 @@ export class navbar extends Component {
     console.log("clicked");
 
     fetch(
-      "https://api.themoviedb.org/3/authentication/token/new?api_key=25050db00f2ae7ba0e6b1631fc0d272f"
+      `https://api.themoviedb.org/3/authentication/token/new?api_key=${api_key}`
     )
       .then(res => {
         return res.json();
@@ -74,7 +76,7 @@ export class navbar extends Component {
   requestGuestToken=()=>{
     
     fetch(
-      "https://api.themoviedb.org/3/authentication/guest_session/new?api_key=25050db00f2ae7ba0e6b1631fc0d272f"
+      `https://api.themoviedb.org/3/authentication/guest_session/new?api_key=${api_key}`
     )
       .then(res => {
         return res.json();
@@ -90,7 +92,7 @@ export class navbar extends Component {
   }
   logOut = () => {
     fetch(
-      "https://api.themoviedb.org/3/authentication/session?api_key=25050db00f2ae7ba0e6b1631fc0d272f",
+      `https://api.themoviedb.org/3/authentication/session?api_key=${api_key}`,
       {
         method: "DELETE",
         headers: {

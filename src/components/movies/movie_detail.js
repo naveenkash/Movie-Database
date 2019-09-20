@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import "./movie_detail.css";
 import store from "../../store";
+// import {api_key } from '../../process.env'
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+var api_key = process.env.REACT_APP_API_KEY
 export class movie_detail extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +21,7 @@ export class movie_detail extends Component {
   componentDidMount() {
     console.log(this.props);
     fetch(
-      `https://api.themoviedb.org/3/movie/${this.props.movie.id}/videos?api_key=25050db00f2ae7ba0e6b1631fc0d272f&language=en-US`
+      `https://api.themoviedb.org/3/movie/${this.props.movie.id}/videos?api_key=${api_key}&language=en-US`
     )
       .then(res => {
         return res.json();
@@ -58,7 +60,7 @@ export class movie_detail extends Component {
         console.log(this.state.genres);
       });
 
-      fetch(`https://api.themoviedb.org/3/movie/${this.props.movie.id}/credits?api_key=25050db00f2ae7ba0e6b1631fc0d272f`)
+      fetch(`https://api.themoviedb.org/3/movie/${this.props.movie.id}/credits?api_key=${api_key}`)
       .then((res)=>{
         return res.json();
       })

@@ -1,19 +1,14 @@
 import React, { Component } from 'react'
 
+// import {api_key } from './process.env'
 import { connect } from "react-redux";
 import { addSessionId } from "./actions";
+var api_key = process.env.REACT_APP_API_KEY
 export class signup extends Component {
-    // componentDidMount(){
-    //     console.log(window.location.href.split('=').join(',').split('&').join(',').split(','));
-    //     var splitHref = window.location.href.split('=').join(',').split('&').join(',').split(',');
-    //     console.log(splitHref[1]);
-    // localStorage.setItem('request_token',splitHref[1]);
-        
-    // }
     createSession=()=>{
         var splitHref = window.location.href.split('=').join(',').split('&').join(',').split(',');
         console.log(splitHref[1]);
-        fetch(`https://api.themoviedb.org/3/authentication/session/new?api_key=25050db00f2ae7ba0e6b1631fc0d272f`,{
+        fetch(`https://api.themoviedb.org/3/authentication/session/new?api_key=${api_key}`,{
             method:'POST',
             body:JSON.stringify({request_token:splitHref[1]}) ,
             headers: {
@@ -28,23 +23,13 @@ export class signup extends Component {
         .then((data)=>{
             console.log(data.session_id);
             this.props.addSessionId(data.session_id);
-
-            // var strLength = data.session_id.length
-            // console.log(strLength);
-            
-            // var halfStr = strLength/2;
-            // var firstHalf = data.session_id.substr(0,halfStr);
-            // var seconfHalf = data.session_id.substr(halfStr);
             localStorage.setItem('session_id',data.session_id);
             this.props.history.push('/');
-            // console.log(firstHalf,firstHalf.length,seconfHalf,seconfHalf.length);
-            
         })
     }
     render() {
         return (
             <div className="continue_signup">
-                {/* <h1 style={{textAlign:'center'}}>sign up route</h1> */}
                 <h1>Continue signing up</h1>
                 <button onClick={this.createSession}>Continue</button>
             </div>
