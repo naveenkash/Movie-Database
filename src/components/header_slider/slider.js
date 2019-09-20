@@ -6,7 +6,6 @@ import Slider from "react-slick";
 import "./slider.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import store from "../../store";
  
 function Title(movie) {
 

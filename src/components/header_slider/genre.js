@@ -1,20 +1,5 @@
 import React, { Component } from 'react'
-import store from '../../store'
 import { connect } from "react-redux";
-// function Genre(movie,genre) {
-//         if (movie) {
-//             return null
-//         }
-//         this.state.popularMovies.map((movie)=>(
-//             movie.genre_ids.map((id)=>(
-                
-//                 this.genre.map((genre)=>(
-//                  console.log(id,genre)
-                 
-//                 ))
-//             ))
-//         ))
-// }
 
 export class genre extends Component {
     constructor(props){
@@ -26,7 +11,6 @@ export class genre extends Component {
         }
     }
     componentDidMount(){
-        console.log('genre running');
         
         if (!this.props.movie) {
             return;

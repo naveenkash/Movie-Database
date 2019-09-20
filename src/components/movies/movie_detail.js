@@ -151,7 +151,7 @@ export class movie_detail extends Component {
                   return <h1>Sorry no video!</h1>;
                 }
                 return (
-                  <iframe
+                  <iframe title="youtube video"
                     src={`https://www.youtube.com/embed/${this.state.key}`}
                   ></iframe>
                 );

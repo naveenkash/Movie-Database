@@ -22,7 +22,6 @@ export class navbar extends Component {
       document.body.scrollTop > 45 ||
       document.documentElement.scrollTop > 45
     ) {
-      console.log("down");
       this.setState({ scrolled: true });
     } else {
       this.setState({ scrolled: false });

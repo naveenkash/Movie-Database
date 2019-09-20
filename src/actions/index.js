@@ -52,7 +52,6 @@ export const slider_Movies = () => {
           type: "ADD_MOVIES_TO_SLIDER",
           payload: movies.results
         });
-        console.log(movies);
       })
       .catch((err)=>{
         console.log(err);
