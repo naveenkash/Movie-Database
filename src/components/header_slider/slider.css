@@ -5,7 +5,7 @@
 }
 .header-slide{
     width: 100%;
-    height: 600px;
+    height: 650px;
     position: relative;
 }
 .slick-slide img{
@@ -37,6 +37,7 @@
     width: 500px;
     height: auto !important;
     transform: translate(-10%,0%);
+    
 }
 .banner-info-wrapper{
     width: 100%;
@@ -99,4 +100,57 @@
 }
 .slick-dots li button:before{
     color:rgb(224,224,224) !important;
+}
+@media only screen and (max-width:1400px){
+    .header-slider{
+        /* width: 82%;
+        margin-left: 18%; */
+        height: 550px;
+    }
+    
+}
+@media only screen and (max-width:1250px){
+    .header-slider{
+        width:100%;
+        margin-left: 0;
+        height: 550px;
+    }
+    
+}
+@media only screen and (max-width:1050px){
+    .header-slider{
+        height: 500px;
+    }
+    .banner-info{
+        top: 30%;
+    }
+    
+}
+@media only screen and (max-width:680px){
+    .header-slider{
+        height: 430px;
+    }
+    .banner-info{
+        top: 20%;
+        left:0;
+        transform: translate(0%,0%);
+        padding-left: 20px;
+    }
+    
+}
+@media only screen and (max-width:550px){
+    
+    .banner-info{
+        width: 100%;
+        padding: 0 20px;
+    }
+    
+}
+
+@media only screen and (max-width:480px){
+    
+    .banner-info-wrapper h1{
+        font-size:24px;
+    }
+    
 }

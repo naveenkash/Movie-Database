@@ -19,7 +19,6 @@ export class movie_detail extends Component {
     };
   }
   componentDidMount() {
-    console.log(this.props);
     fetch(
       `https://api.themoviedb.org/3/movie/${this.props.movie.id}/videos?api_key=${api_key}&language=en-US`
     )
@@ -27,8 +26,6 @@ export class movie_detail extends Component {
         return res.json();
       })
       .then(data => {
-        console.log(data);
-
         if (data.results.length <= 0) {
           this.setState({
             noVideo: true
@@ -36,10 +33,6 @@ export class movie_detail extends Component {
         }
 
         if (data.results.length >= 1) {
-          console.log(data.results);
-
-          console.log("running results is not empty");
-
           this.setState({
             key: data.results[0].key
           });
@@ -49,7 +42,6 @@ export class movie_detail extends Component {
           this.props.movie.genre_ids.forEach(movie_id => {
             GENRES_ARRAY.forEach(single_genre => {
               if (movie_id === single_genre.id) {
-                console.log(single_genre.name);
                 this.setState({
                   genres: [...this.state.genres, single_genre.name]
                 });
@@ -57,7 +49,6 @@ export class movie_detail extends Component {
             });
           });
         }
-        console.log(this.state.genres);
       });
 
       fetch(`https://api.themoviedb.org/3/movie/${this.props.movie.id}/credits?api_key=${api_key}`)
@@ -65,7 +56,6 @@ export class movie_detail extends Component {
         return res.json();
       })
       .then((data)=>{
-        console.log(data);
         data.cast.forEach((cast)=>{
           if (this.state.cast.length>=10) {
             return
@@ -74,7 +64,6 @@ export class movie_detail extends Component {
             cast: [...this.state.cast, cast]
           });
         })
-        console.log(this.state.cast);
         data.crew.forEach((crew)=>{
           if (crew.job==="Director") {
             this.setState({
@@ -82,7 +71,6 @@ export class movie_detail extends Component {
             });
           }
         })
-        console.log(this.state.crew);
         
       })
   }
@@ -190,7 +178,7 @@ export class movie_detail extends Component {
                   <h4>Director</h4>
               {
                 this.state.crew.map((crew)=>(
-                  <div className="director">
+                  <div key={crew.id} className="director">
                   <h1>{crew.name}</h1></div>
                 ))
               }

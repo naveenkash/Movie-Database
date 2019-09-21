@@ -31,11 +31,12 @@ export class movies extends Component {
        this.props.movie(movie)
     }
     addToWatchList=(e,movie)=>{
-        e.target.style.color="#4293f5";
-        var Session_Id = localStorage.getItem('session_id');
-        if (!Session_Id) {
-            return alert('Login Before Adding')
+        if (!localStorage.getItem('session_id')) {
+            alert('Login')
+            return;
         }
+        // e.target.style.color="#4293f5";
+        var Session_Id = localStorage.getItem('session_id');
         fetch(`https://api.themoviedb.org/3/account/{account_id}/watchlist?api_key=25050db00f2ae7ba0e6b1631fc0d272f&session_id=${Session_Id}`,{
             method:'POST',
             headers: {
@@ -51,15 +52,22 @@ export class movies extends Component {
             return res.json();
         })
         .then((data)=>{
-            console.log(data);
+            alert(data.status_message)
+            if (data.state_code===3) {
+                return
+            }
         })
         .catch((err)=>{
-            console.log(err);
+            alert(err)
         })
     }
     addToFavorite=(e,movie)=>{
-        e.target.style.color="red"
+        if (!localStorage.getItem('session_id')) {
+        alert('Login')
+        return;
+    }
         
+            //  e.target.style.color="red"
         
         var Session_Id = localStorage.getItem('session_id');
         if (!Session_Id) {
@@ -80,16 +88,28 @@ export class movies extends Component {
             return res.json();
         })
         .then((data)=>{
-            console.log(data);
+            alert(data.status_message)
+            if (data.state_code===3) {
+                return
+            }
         })
         .catch((err)=>{
-            console.log(err);
+            alert(err)
         })
     }
     
     render() {
         return (
             <div className="movies">
+                 {(() => {
+                if (!this.props.pages) {
+                    return null
+                }else if(this.props.pages<=1){
+                    return null
+                } else {
+                    return(<Pagination/>) 
+                }
+              })()}
                     <div className="movie_wrapper">
               {
                   this.props.movies.map((movie)=>(
@@ -119,15 +139,7 @@ export class movies extends Component {
               
                </div>
                
-                {(() => {
-                if (!this.props.pages) {
-                    return null
-                }else if(this.props.pages<=1){
-                    return null
-                } else {
-                    return(<Pagination/>) 
-                }
-              })()}
+               
             </div>
         )
     }

@@ -1,66 +1,91 @@
-.side_navbar{
-    width: 15%;
+.side_navbar {
+    width: 350px;
     height: 100vh;
     background: rgb(31, 31, 31);
-    /* background-image:  linear-gradient(45deg, rgba(247, 53, 84, 0.5) 0%, rgba(247, 53, 84, 0.5) 12.5%,rgba(239, 79, 73, 0.5) 12.5%, rgba(239, 79, 73, 0.5) 25%,rgba(231, 105, 63, 0.5) 25%, rgba(231, 105, 63, 0.5) 37.5%,rgba(223, 131, 52, 0.5) 37.5%, rgba(223, 131, 52, 0.5) 50%,rgba(215, 158, 42, 0.5) 50%, rgba(215, 158, 42, 0.5) 62.5%,rgba(207, 184, 31, 0.5) 62.5%, rgba(207, 184, 31, 0.5) 75%,rgba(199, 210, 21, 0.5) 75%, rgba(199, 210, 21, 0.5) 87.5%,rgba(191, 236, 10, 0.5) 87.5%, rgba(191, 236, 10, 0.5) 100%),linear-gradient(135deg, rgb(161, 190, 135) 0%, rgb(161, 190, 135) 12.5%,rgb(166, 174, 126) 12.5%, rgb(166, 174, 126) 25%,rgb(171, 158, 117) 25%, rgb(171, 158, 117) 37.5%,rgb(176, 142, 108) 37.5%, rgb(176, 142, 108) 50%,rgb(181, 126, 99) 50%, rgb(181, 126, 99) 62.5%,rgb(186, 110, 90) 62.5%, rgb(186, 110, 90) 75%,rgb(191, 94, 81) 75%, rgb(191, 94, 81) 87.5%,rgb(196, 78, 72) 87.5%, rgb(196, 78, 72) 100%); */
     position: fixed;
     top: 0;
-    left: 0;
+    /* left: 0; */
+    z-index: 11;
     /* overflow-y: scroll; */
-        
+    animation-duration: 0.3s !important;
+    left: 0%;
+    transform: translatex(-100%);
 }
-.side_navbar::-webkit-scrollbar{
+
+.side_navbar::-webkit-scrollbar {
     width: 5px;
 }
-.side_navbar::-webkit-scrollbar-thumb{
+
+.side_navbar::-webkit-scrollbar-thumb {
     background: rgb(129, 127, 127);
-    
 }
-.side_navbar::-webkit-scrollbar-thumb:hover{
+
+.side_navbar::-webkit-scrollbar-thumb:hover {
     background: rgb(95, 92, 89);
-    
 }
-.side_navbar_wrapper{
+
+.side_navbar_wrapper {
     width: 100%;
-    height:100%;
+    height: 100%;
     /* padding: 20px; */
     /* font-family: 'Staatliches', cursive; */
 }
-.side_logo{
+
+.side_logo {
     width: 100%;
     height: auto;
     background: rgb(31, 31, 31);
     padding-top: 35px;
     padding-bottom: 35px;
     text-align: center;
+    position: relative;
 }
-.side_logo h1{
+
+.side_logo h1 {
     font-family: 'Staatliches', cursive;
     font-weight: 700;
     letter-spacing: 0.20em;
     color: white;
-    font-size:30px;
+    font-size: 30px;
 }
-.side_navbar_container{
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    /* font-size: 24px; */
+    cursor: pointer;
+}
+.close i {
+    width: 20px;
+    height: 20px;
+    color: white;
+}
+.close i svg {
+    width: 20px;
+    height: 20px;
+}
+.side_navbar_container {
     width: 100%;
-    height:100%;
+    height: 100%;
     padding: 20px 30px;
-    background: rgb(40,40,40);
+    background: rgb(40, 40, 40);
     /* text-align: center; */
 }
-.side_category_head{
+
+.side_category_head {
     font-weight: 700;
     letter-spacing: 0.10em;
-    color:white;
-    font-size:24px;
+    color: white;
+    font-size: 24px;
     font-family: 'Staatliches', cursive;
-    
     margin-bottom: 25px;
     cursor: pointer;
     position: relative;
     /* padding-left: 30px; */
 }
-.side_category_head::after{
+
+.side_category_head::after {
     content: url('data:image/svg+xml; utf8, <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sort-down" class="svg-inline--fa fa-sort-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z"></path></svg>');
     -webkit-mask: url('./sort-down-solid.svg') no-repeat 50% 50%;
     mask: url('./sort-down-solid.svg') no-repeat 50% 50%;
@@ -72,22 +97,23 @@
     position: absolute;
     right: 0;
     top: 50%;
-    transform: translate(0,-50%);
+    transform: translate(0, -50%);
     background-color: white;
 }
 
-.side_category ul{
+.side_category ul {
     padding: 0;
     margin: 0;
 }
-.side_category ul li{
+
+.side_category ul li {
     list-style: none;
-    padding: 13px ;
+    padding: 13px;
     font-family: 'Staatliches', cursive;
     width: 100%;
     margin: 7px 0;
     font-size: 18px;
-    color:  rgb(187, 187, 187);
+    color: rgb(187, 187, 187);
     letter-spacing: 0.05em;
     /* border-top-left-radius: 0;
     border-top-right-radius: 50px;
@@ -96,18 +122,27 @@
     /* display: inline-block; */
     cursor: pointer;
 }
-#pop{
+
+#pop {
     color: white;
 }
-.side_category ul li:hover{
+
+.side_category ul li:hover {
     color: white !important;
 }
-#mov{
-    overflow: hidden;
-    transition: 0.3s;
 
-}
-#acc{
+#mov {
     overflow: hidden;
     transition: 0.3s;
+}
+
+#acc {
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+@media only screen and (max-width:550px){
+    .side_navbar{
+        width: 400px;
+    }
 }

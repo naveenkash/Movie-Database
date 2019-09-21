@@ -103,7 +103,7 @@ export class slider extends Component {
                     }
                     return <OriginalName movie={movie} />;
                   })()}
-                  <p>{movie.overview}</p>
+                  <p> {movie.overview.length>=200? movie.overview.slice(0,200)+' . . .' :movie.overview}</p>
                   <h3>{movie.release_date.split("-")[0]}</h3>
                  
                 </div>

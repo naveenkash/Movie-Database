@@ -68,6 +68,10 @@ export const account_Details = (type,typeofProgramm,session)=>{
       .then(res => res.json())
       .then(movies => {
 
+       alert(movies.status_message);
+       if (movies.status_code===3) {
+         return
+       }
         if (movies.results.length<=0) {
           return
         }
@@ -76,8 +80,10 @@ export const account_Details = (type,typeofProgramm,session)=>{
           payload: movies
         });
         console.log(movies);
+        
       })
       .catch((err)=>{
+        alert(err)
         console.log(err);
       })
   };

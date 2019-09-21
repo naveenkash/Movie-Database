@@ -9,7 +9,8 @@ export class navbar extends Component {
     super(props);
     this.state = {
       scrolled: false,
-      session_id: ""
+      session_id: "",
+      burgerClicked:false,
     };
   }
   componentDidMount() {
@@ -62,8 +63,9 @@ export class navbar extends Component {
       })
       .then(data => {
         console.log(data);
+        localStorage.setItem('request_token',data.request_token)
         window.open(
-          `https://www.themoviedb.org/authenticate/${data.request_token}?redirect_to=http://localhost:3000/signup`,
+          `https://www.themoviedb.org/authenticate/${data.request_token}?redirect_to=https://movies-detail.netlify.com/signup`,
           "_blank"
         );
         // localStorage.setItem('request_token',data.request_token);
@@ -116,11 +118,20 @@ export class navbar extends Component {
         alert(err);
       });
   };
+  burgerClicked=()=>{
+    this.setState({ burgerClicked: true },()=>{   this.props.clicked(this.state.burgerClicked)})
+    // this.props.clicked(true)
+  }
   render() {
     return (
       <div className="navbar" style={this.scroll()}>
         <div className="navbar-wrapper">
           <div className="navbar-container">
+            <div className="burger" onClick={this.burgerClicked}>
+              <div className="burger_line"></div>
+              <div className="burger_line"></div>
+              <div className="burger_line"></div>
+            </div>
             <ul>
               {/* {(() => {
                 if (this.state.session_id) {

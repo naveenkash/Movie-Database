@@ -7,7 +7,7 @@ import MovieDetail from './movies/movie_detail'
 export class header extends Component {
   constructor(props){
     super(props);
-    this.state={showDetail:false}
+    this.state={showDetail:false,showSideNav:false};
   }
   showDetail=(showMovieDetail)=>{
     this.setState({showDetail:showMovieDetail})
@@ -18,11 +18,28 @@ export class header extends Component {
   close=(closeDetail)=>{
     this.setState({showDetail:closeDetail})
   }
+  componentWillReceiveProps(){
+    // 
+    if (this.props.open) {
+      this.setState({showSideNav:this.props.open})
+    }
+  }
+  closeSideNav=()=>{
+    this.setState({showSideNav:false});
+  }
   render() {
     return (
       <div>
         <div className="header">
-          <SideNavbar />
+          {/* <SideNavbar closeNav={this.closeSideNav} clicked={this.state.showSideNav}/> */}
+          {(() => {
+                    if (!this.state.showSideNav) {
+                        return null;
+                    }
+                    return(
+                      <SideNavbar closeNav={this.closeSideNav}/>
+                    )
+                })()}
           <Slider />
         </div>
         <Movies detail={this.showDetail} movie={this.setMovie}/>

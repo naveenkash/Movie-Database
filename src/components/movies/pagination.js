@@ -29,44 +29,65 @@ export class Pagination extends React.Component {
       });
     }
   }
-  loadPage = number => {
-    let halfPage = Math.floor(this.state.one + this.state.last) / 2;
-    if (number >= halfPage) {
-      if (number >= this.props.pages) {
-        return;
-      }
-      this.setState(
-        { one: (this.state.one += 5), last: (this.state.last += 5) },
-        () => {
-          if (
-            this.state.slicedPage[this.state.slicedPage.length - 1] >=
-            this.props.pages
-          ) {
-            
-            return;
-          }
-          this.setState({
-            slicedPage: this.state.pageNumber.slice(
-              this.state.one,
-              this.state.last
-            )
-          });
-          this.props.all_Movies(this.props.type, number);
-        }
-      );
-    } else if (number < halfPage) {
-      if (this.state.one >= 5) {
-        this.setState({
-          one: (this.state.one -= 5),
-          last: (this.state.last -= 5)
-        });
-      }
-      
-      this.setState({
-        slicedPage: this.state.pageNumber.slice(this.state.one, this.state.last)
-      });
-      this.props.all_Movies(this.props.type, number);
+  onPageNumClicked = (e,number) => {
+    // document.querySelectorAll('.pagination_link button')
+    console.log(document.querySelectorAll('.pagination_link button'));
+    var liBtns = document.querySelectorAll('.pagination_link button');
+    for (let i = 0; i < liBtns.length; i++) {
+      const element = liBtns[i];
+      element.style.textDecoration="none";
     }
+    e.target.style.textDecoration="underline"
+    if (number > this.props.pages) {
+      return;
+    }
+
+    let l = number + 5;
+    let o = number - 4;
+
+    if (l > this.props.pages) {
+      l = this.props.pages;
+    }
+    if (o < 1) {
+      o = 1;
+    }
+    var curLength = l - o + 1; // current pagination llist length eg 9 to 15 = 7
+    var requiredMorePagesToAdd;
+    if (curLength < 10) {
+      requiredMorePagesToAdd = 10 - curLength; // required more pages to add to make length 10 .. eg 10 - 7 = 3
+      if (o > 1) {
+        var availableItemsAtBeginning = o - 1; // how many item are available to left side // 9 - 1 = 8
+        if (availableItemsAtBeginning >= requiredMorePagesToAdd) {
+          // cannot add all elemenet s.. so add till we have list of size 10 , 8> 3
+          o = o - requiredMorePagesToAdd;
+        } else {
+          o = o - availableItemsAtBeginning;
+        }
+      }
+    }
+
+    curLength = l - o + 1;
+    if (curLength < 10) {
+      requiredMorePagesToAdd = 10 - curLength; // required more pages to add to make length 10 .. eg 10 - 7 = 3
+      if (l < this.props.pages) {
+        var availableItemsAtEnd = this.props.pages - l; // how many item are available to left side // 9 - 1 = 8
+        if (availableItemsAtEnd >= requiredMorePagesToAdd) {
+          // cannot add all elemenet s.. so add till we have list of size 10 , 8> 3
+          l = l + requiredMorePagesToAdd;
+        } else {
+          l = l + availableItemsAtEnd;
+        }
+      }
+    }
+    this.loadPage(number);
+    this.setState({
+      one: o,
+      last: l,
+      slicedPage: this.state.pageNumber.slice(o - 1, l)
+    });
+  };
+  loadPage = number => {
+    this.props.all_Movies(this.props.type, number);
   };
   render() {
     return (
@@ -75,8 +96,8 @@ export class Pagination extends React.Component {
           {this.state.slicedPage.map(number => (
             <li key={number} className="pagination_link">
               <button
-                onClick={() => {
-                  this.loadPage(number);
+                onClick={(e) => {
+                  this.onPageNumClicked(e,number);
                 }}
               >
                 {number}

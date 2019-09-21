@@ -29,13 +29,34 @@ export class signup extends Component {
     }
     render() {
         return (
-            <div className="continue_signup">
-                <h1>Continue signing up</h1>
-                <button onClick={this.createSession}>Continue</button>
+            <div style={Signup} className="continue_signup">
+                <h1 style={sign_Text}>Continue signing up</h1>
+                <button style={sign_btn} onClick={this.createSession}>Continue</button>
             </div>
         )
     }
+    
 }
+const Signup = {
+    position:'absolute',
+    top:'50%',
+    left:'50%',
+    transform:"translate(-50%,-50%)",
+    textAlign:'center'
+    }
+    const sign_Text={
+        color:'white',
+        marginBottom:'20px',
+
+    }
+    const sign_btn={
+        background:'none',
+        outline:'none',
+        color:'white',
+        border:'1px solid white',
+        padding:'8px 12px',
+        cursor:'pointer'
+    }
 const mapStateToProps = state => ({
   });
   

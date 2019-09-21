@@ -5,19 +5,27 @@ import Navbar from './components/top_navbar/navbar';
 import { BrowserRouter,Route } from "react-router-dom";
 import Signup from './signup'
 export class App extends Component  {
-  // componentWillMount(){
-  //   fetch('https://api.themoviedb.org/3/authentication/token/new?api_key=25050db00f2ae7ba0e6b1631fc0d272f')
-  // }
+  constructor(props){
+    super(props);
+    this.state={
+      open:false,
+      rt:localStorage.getItem('request_token')
+    }
+  }
+  openSideNav=(burgerClicked)=>{
+    this.setState({open:burgerClicked});
+    
+  }
     render(){
     return (
       <BrowserRouter>
       <div className="App">
         
-        <Navbar/>
+        <Navbar clicked={this.openSideNav}/>
         {/* <Header/> */}
-        <Route exact path="/" component={Header}/>
+        <Route exact path="/" render={(props) => <Header {...props} open={this.state.open} />}/>
         
-        <Route path="/signup" component={Signup}/>
+        <Route path={`/signup?request_token=${this.state.rt}&approved=true`} component={Signup}/>
               {/* <Route path="/detail" component={MovieDetail}/> */}
       
       </div>
