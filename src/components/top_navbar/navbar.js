@@ -72,7 +72,7 @@ export class navbar extends Component {
         // this.props.tokenRequested(true);
         this.setState({ tokenRequested: true },()=>{    this.props.tokenRequested(this.state.tokenRequested)});
         console.log(this.state.tokenRequested);
-        
+        this.props.checkAuth();
         // localStorage.setItem('request_token',data.request_token);
         //   return  fetch(`https://www.themoviedb.org/authenticate/${data.request_token}?redirect_to=localhost:3000`)
       })
