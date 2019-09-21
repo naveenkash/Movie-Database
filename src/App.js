@@ -2,7 +2,7 @@ import React ,{Component} from "react";
 import "./App.css";
 import Header from './components/header';
 import Navbar from './components/top_navbar/navbar';
-import { BrowserRouter,Route } from "react-router-dom";
+// import { BrowserRouter,Route } from "react-router-dom";
 import Signup from './signup'
 export class App extends Component  {
   constructor(props){
