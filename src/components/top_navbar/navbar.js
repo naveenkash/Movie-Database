@@ -11,6 +11,7 @@ export class navbar extends Component {
       scrolled: false,
       session_id: "",
       burgerClicked:false,
+      tokenRequested:false,
     };
   }
   componentDidMount() {
@@ -65,9 +66,13 @@ export class navbar extends Component {
         console.log(data);
         localStorage.setItem('request_token',data.request_token)
         window.open(
-          `https://www.themoviedb.org/authenticate/${data.request_token}?redirect_to=https://movies-detail.netlify.com/signup`,
+          `https://www.themoviedb.org/authenticate/${data.request_token}`,
           "_blank"
         );
+        // this.props.tokenRequested(true);
+        this.setState({ tokenRequested: true },()=>{    this.props.tokenRequested(this.state.tokenRequested)});
+        console.log(this.state.tokenRequested);
+        
         // localStorage.setItem('request_token',data.request_token);
         //   return  fetch(`https://www.themoviedb.org/authenticate/${data.request_token}?redirect_to=localhost:3000`)
       })

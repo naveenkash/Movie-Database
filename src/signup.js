@@ -1,16 +1,23 @@
 import React, { Component } from 'react'
-
+import './signup.css'
 // import {api_key } from './process.env'
 import { connect } from "react-redux";
 import { addSessionId } from "./actions";
 var api_key = process.env.REACT_APP_API_KEY
 export class signup extends Component {
+    constructor(props){
+        super(props)
+            this.state={
+                closeSignup:false
+             }
+    }
     createSession=()=>{
-        var splitHref = window.location.href.split('=').join(',').split('&').join(',').split(',');
-        console.log(splitHref[1]);
+        // var splitHref = window.location.href.split('=').join(',').split('&').join(',').split(',');
+        // console.log(splitHref[1]);
+        var token = localStorage.getItem('request_token');
         fetch(`https://api.themoviedb.org/3/authentication/session/new?api_key=${api_key}`,{
             method:'POST',
-            body:JSON.stringify({request_token:splitHref[1]}) ,
+            body:JSON.stringify({request_token:token}) ,
             headers: {
                 'Content-Type': 'application/json',
                 // 'Content-Type': 'application/x-www-form-urlencoded',
@@ -21,17 +28,19 @@ export class signup extends Component {
             return res.json();
         })
         .then((data)=>{
-            console.log(data.session_id);
             this.props.addSessionId(data.session_id);
             localStorage.setItem('session_id',data.session_id);
-            this.props.history.push('/');
+            // this.props.history.push('/');
+            this.setState({ closeSignup: false },()=>{    this.props.closeSignup(this.state.closeSignup)})
         })
     }
     render() {
         return (
+            <div className="signup-wrapper">
             <div style={Signup} className="continue_signup">
                 <h1 style={sign_Text}>Continue signing up</h1>
                 <button style={sign_btn} onClick={this.createSession}>Continue</button>
+            </div>
             </div>
         )
     }

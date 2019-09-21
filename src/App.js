@@ -9,27 +9,42 @@ export class App extends Component  {
     super(props);
     this.state={
       open:false,
-      rt:localStorage.getItem('request_token')
+      rt:localStorage.getItem('request_token'),
+      request:false,
     }
   }
   openSideNav=(burgerClicked)=>{
     this.setState({open:burgerClicked});
     
   }
+  request=(tokenRequested)=>{
+    this.setState({request:tokenRequested});
+  }
+  close=(close)=>{
+    this.setState({request:close});
+  }
     render(){
     return (
-      <BrowserRouter>
+      // <BrowserRouter>
       <div className="App">
         
-        <Navbar clicked={this.openSideNav}/>
-        {/* <Header/> */}
-        <Route exact path="/" render={(props) => <Header {...props} open={this.state.open} />}/>
+        <Navbar clicked={this.openSideNav} tokenRequested={this.request}/>
+        {(()=>{
+          if (!this.state.request) {
+            return null;
+          }else{
+            return <Signup closeSignup={this.close}/>;
+          }
+        })()}
         
-        <Route path={`/signup?request_token=${this.state.rt}&approved=true`} component={Signup}/>
+        {/* <Header/>
+        <Route exact path="/" render={(props) => }/> */}
+        <Header  open={this.state.open} />
+        {/* <Route path={`/signup?request_token=${this.state.rt}&approved=true`} component={Signup}/> */}
               {/* <Route path="/detail" component={MovieDetail}/> */}
       
       </div>
-       </BrowserRouter>
+       /* </BrowserRouter> */
       )
   }
 }
