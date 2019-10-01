@@ -178,9 +178,7 @@
     .movie_poster img{
         height: 250px;
     }
-    .movie_container{
-        margin: 0;
-    }
+   
     /* .movie_wrapper{ */
         /* grid-template-columns:1fr ;
     } */
