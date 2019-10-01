@@ -54,8 +54,6 @@ export class navbar extends Component {
     }
   };
   requestToken = () => {
-    console.log("clicked");
-
     fetch(
       `https://api.themoviedb.org/3/authentication/token/new?api_key=${api_key}`
     )
@@ -63,15 +61,14 @@ export class navbar extends Component {
         return res.json();
       })
       .then(data => {
-        console.log(data);
         localStorage.setItem('request_token',data.request_token)
         window.open(
           `https://www.themoviedb.org/authenticate/${data.request_token}`,
           "_blank"
         );
         // this.props.tokenRequested(true);
-        this.setState({ tokenRequested: true },()=>{    this.props.tokenRequested(this.state.tokenRequested)});
-        console.log(this.state.tokenRequested);
+        this.setState({ tokenRequested: true },()=>{    this.props.tokenRequested(this.state.tokenRequested)
+        });
         this.props.checkAuth();
         // localStorage.setItem('request_token',data.request_token);
         //   return  fetch(`https://www.themoviedb.org/authenticate/${data.request_token}?redirect_to=localhost:3000`)

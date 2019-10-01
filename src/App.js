@@ -13,10 +13,22 @@ export class App extends Component  {
       request:false,
     }
   }
-  openSideNav=(burgerClicked)=>{
-    this.setState({open:burgerClicked});
+   openSideNav =()=>{
+    
+     this.setState({open:true},()=>{
+       console.log(this.state.open);
+       
+     });
+   
+    
     
   }
+   closeSideNav=()=>{
+      this.setState({open:false},()=>{
+        console.log(this.state.open);
+        
+      });
+     }
   request=(tokenRequested)=>{
     this.setState({request:tokenRequested});
   }
@@ -39,7 +51,7 @@ export class App extends Component  {
         
         {/* <Header/>
         <Route exact path="/" render={(props) => }/> */}
-        <Header  open={this.state.open} />
+        <Header closeSide={this.closeSideNav}  open={this.state.open} />
         {/* <Route path={`/signup?request_token=${this.state.rt}&approved=true`} component={Signup}/> */}
               {/* <Route path="/detail" component={MovieDetail}/> */}
       

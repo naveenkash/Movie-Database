@@ -34,12 +34,16 @@ export class signup extends Component {
             this.setState({ closeSignup: false },()=>{    this.props.closeSignup(this.state.closeSignup)})
         })
     }
+    closeSignupPage=()=>{
+           this.props.closeSignup(false);
+    }
     render() {
         return (
             <div className="signup-wrapper">
             <div style={Signup} className="continue_signup">
                 <h1 style={sign_Text}>Continue signing up</h1>
                 <button style={sign_btn} onClick={this.createSession}>Continue</button>
+                <button style={sign_btn} onClick={this.closeSignupPage}>Cancel</button>
             </div>
             </div>
         )
@@ -64,7 +68,8 @@ const Signup = {
         color:'white',
         border:'1px solid white',
         padding:'8px 12px',
-        cursor:'pointer'
+        cursor:'pointer',
+        marginRight:'10px',
     }
 const mapStateToProps = state => ({
   });

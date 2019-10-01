@@ -47,7 +47,7 @@
     display: block;
 }
 .movie_detail{
-    padding: 15px;
+    padding: 15px 15px 10px ;
     width: 100%;
     height: auto;
     display: flex;
@@ -57,11 +57,12 @@
 }
 .movie_name{
     width: 100%;
+    margin-bottom: 5px;
 }
 .movie_name h4{
     font-size: 14px;
     /* font-weight: lighter; */
-    font-family: 'Manjari', sans-serif;
+    font-family: 'Josefin Sans', sans-serif;
     cursor: pointer;
     color: white;
 }
@@ -72,16 +73,16 @@
     color: rgb(224, 224, 224)
 }
 .movie_rating{
-    width: 40%;
+    /* width: 40%; */
     text-align: right;
     /* float: right;
     clear: both; */
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    position:absolute;
+    /* position:absolute;
     right: 15px;
-    bottom: 8px;
+    bottom: 8px; */
 }
 .add_to_waatchlist{
     display: flex;
@@ -161,7 +162,7 @@
 }
 @media only screen and (max-width:680px){
     .movie_poster img{
-        height: 400px;
+        height: 370px;
     }
     .movie_wrapper{
         grid-template-columns:1fr 1fr;
@@ -169,15 +170,25 @@
 }
 @media only screen and (max-width:550px){
     .movie_poster img{
-        height: 400px;
+        height: 350px;
     }
     
 }
 @media only screen and (max-width:480px){
     .movie_poster img{
-        height: 360px;
+        height: 250px;
     }
-    .movie_wrapper{
-        grid-template-columns:1fr ;
+    .movie_container{
+        margin: 0;
     }
+    /* .movie_wrapper{ */
+        /* grid-template-columns:1fr ;
+    } */
+}
+@media only screen and (max-width:350px){
+    .movie_poster img{
+        height: 200px;
+    }
+    
+    
 }

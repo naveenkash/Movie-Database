@@ -16,7 +16,7 @@
 }
 .navbar-container{
     
-    width: 1250px;
+    width: 100%;
     margin: 0 auto;
     height: auto;
     display: flex;
@@ -61,19 +61,19 @@
     margin: 5px 0;
 }
 
-@media only screen and (max-width:1250px){
+/* @media only screen and (max-width:1250px){ */
     /* .burger{
         display: block;
     } */
-   .navbar{
+   /* .navbar{
        width: 100%;
        margin-left: 0;
    }
    .navbar-container{
        width: 100%;
-   }
+   } */
     
-}
+/* } */
 @media only screen and (max-width:480px){
     .navbar-container ul li span{
         font-size:12px;

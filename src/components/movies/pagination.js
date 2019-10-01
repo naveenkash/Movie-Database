@@ -81,8 +81,6 @@ export class Pagination extends React.Component {
     }
     this.loadPage(number);
     this.setState({
-      one: o,
-      last: l,
       slicedPage: this.state.pageNumber.slice(o - 1, l)
     });
   };
