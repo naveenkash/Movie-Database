@@ -1,7 +1,6 @@
 import React from "react";
 import "./pagination.css";
 import { connect } from "react-redux";
-// import store from "../../store";
 import { all_Movies } from "../../actions";
 export class Pagination extends React.Component {
   constructor(props) {
@@ -10,7 +9,7 @@ export class Pagination extends React.Component {
       one: 0,
       last: 10,
       pageNumber: [],
-      slicedPage: []
+      slicedPage: [],
     };
   }
   componentDidMount() {
@@ -24,20 +23,18 @@ export class Pagination extends React.Component {
           slicedPage: this.state.pageNumber.slice(
             this.state.one,
             this.state.last
-          )
+          ),
         });
       });
     }
   }
-  onPageNumClicked = (e,number) => {
-    // document.querySelectorAll('.pagination_link button')
-    console.log(document.querySelectorAll('.pagination_link button'));
-    var liBtns = document.querySelectorAll('.pagination_link button');
+  onPageNumClicked = (e, number) => {
+    var liBtns = document.querySelectorAll(".pagination_link button");
     for (let i = 0; i < liBtns.length; i++) {
       const element = liBtns[i];
-      element.style.textDecoration="none";
+      element.style.textDecoration = "none";
     }
-    e.target.style.textDecoration="underline"
+    e.target.style.textDecoration = "underline";
     if (number > this.props.pages) {
       return;
     }
@@ -81,21 +78,21 @@ export class Pagination extends React.Component {
     }
     this.loadPage(number);
     this.setState({
-      slicedPage: this.state.pageNumber.slice(o - 1, l)
+      slicedPage: this.state.pageNumber.slice(o - 1, l),
     });
   };
-  loadPage = number => {
+  loadPage = (number) => {
     this.props.all_Movies(this.props.type, number);
   };
   render() {
     return (
       <div className="pagination">
         <ul className="pagination_wrapper">
-          {this.state.slicedPage.map(number => (
+          {this.state.slicedPage.map((number) => (
             <li key={number} className="pagination_link">
               <button
                 onClick={(e) => {
-                  this.onPageNumClicked(e,number);
+                  this.onPageNumClicked(e, number);
                 }}
               >
                 {number}
@@ -107,11 +104,8 @@ export class Pagination extends React.Component {
     );
   }
 }
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   type: state.all_Movies.type,
-  pages: state.all_Movies.total_pages
+  pages: state.all_Movies.total_pages,
 });
-export default connect(
-  mapStateToProps,
-  { all_Movies }
-)(Pagination);
+export default connect(mapStateToProps, { all_Movies })(Pagination);

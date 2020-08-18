@@ -1,156 +1,136 @@
-.header-slide-container{
+.header-slide-container {
+  width: 100%;
+  height: auto;
+  height: 100%;
+}
+.header-slide {
+  width: 100%;
+  height: 650px;
+  position: relative;
+}
+.slick-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.slick-list {
+  height: 100%;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.281);
+}
+.banner-info {
+  position: absolute;
+  left: 10%;
+  top: 40%;
+  width: 500px;
+  height: auto !important;
+  transform: translate(-10%, 0%);
+}
+.banner-info-wrapper {
+  width: 100%;
+  height: auto !important;
+}
+.banner-info-wrapper h1 {
+  font-family: "Staatliches", cursive;
+  color: white;
+  letter-spacing: 0.15em;
+  margin-bottom: 15px;
+  display: inline-block;
+}
+.banner-info-wrapper span {
+  margin-left: 25px;
+  padding: 10px;
+  border: 2px solid white;
+  font-family: "Staatliches", cursive;
+  color: white;
+  letter-spacing: 0.15em;
+  border-radius: 50%;
+  position: absolute;
+  right: 0px;
+  top: 30px;
+  min-width: 20px;
+  transition: 0.3s;
+}
+.banner-info-wrapper span:hover {
+  background: white;
+  color: black;
+}
+.banner-info p {
+  color: white;
+  font-family: "Staatliches", cursive;
+  letter-spacing: 0.1em;
+}
+.banner-info h3 {
+  margin-top: 15px;
+  font-family: "Staatliches", cursive;
+  color: white;
+  letter-spacing: 0.15em;
+  display: inline-block;
+  font-weight: lighter;
+}
+.banner-info h4 {
+  margin-bottom: 15px;
+  font-family: "Staatliches", cursive;
+  color: white;
+  letter-spacing: 0.15em;
+  display: inline-block;
+  font-weight: lighter;
+}
+.banner-info h4:not(:first-child) {
+  margin-left: 10px;
+}
+.slick-list {
+  height: 100% !important;
+}
+.slick-dots li button:before {
+  color: rgb(224, 224, 224) !important;
+}
+@media only screen and (max-width: 1400px) {
+  .header-slider {
+    height: 550px;
+  }
+}
+@media only screen and (max-width: 1250px) {
+  .header-slider {
     width: 100%;
-    height: auto;
-    height: 100%;
+    margin-left: 0;
+    height: 550px;
+  }
 }
-.header-slide{
-    width: 100%;
-    height: 650px;
-    position: relative;
+@media only screen and (max-width: 1050px) {
+  .header-slider {
+    height: 500px;
+  }
+  .banner-info {
+    top: 30%;
+  }
 }
-.slick-slide img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-/* .slick-slide{
-    height: 600px !important;
-} */
-/* .slick-slide div{
-    height: 100%;
-} */
-.slick-list{
-    height: 100%;
-}
-.overlay{
-    position: absolute;
-    top:0;
+@media only screen and (max-width: 680px) {
+  .header-slider {
+    height: 430px;
+  }
+  .banner-info {
+    top: 20%;
     left: 0;
+    transform: translate(0%, 0%);
+    padding-left: 20px;
+  }
+}
+@media only screen and (max-width: 550px) {
+  .banner-info {
     width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.281);
-}
-.banner-info{
-    position: absolute;
-    left: 10%;
-    top: 40%;
-    width: 500px;
-    height: auto !important;
-    transform: translate(-10%,0%);
-    
-}
-.banner-info-wrapper{
-    width: 100%;
-    height: auto !important;
-}
-.banner-info-wrapper h1{
-    font-family: 'Staatliches', cursive;
-    color: white;
-    letter-spacing: 0.15em;
-    margin-bottom: 15px;
-    display: inline-block;
-}
-.banner-info-wrapper span{
-    margin-left: 25px;
-    padding: 10px;
-    border: 2px solid white;
-    font-family: 'Staatliches', cursive;
-    color: white;
-    letter-spacing: 0.15em;
-    border-radius: 50%;
-    position: absolute;
-    right: 0px;
-    top: 30px;
-    min-width: 20px;
-    /* float: right;
-    clear: both; */
-    transition: 0.3s;
-    /* padding-bottom: 50px; */
-}
-.banner-info-wrapper span:hover{
-    background: white;
-    color: black;
-}
-.banner-info p{
-    color: white;
-    font-family: 'Staatliches', cursive;
-    letter-spacing: 0.10em;
-}
-.banner-info h3{
-    margin-top: 15px;
-    font-family: 'Staatliches', cursive;
-    color: white;
-    letter-spacing: 0.15em;
-    display: inline-block;
-    font-weight: lighter;
-}
-.banner-info h4{
-    margin-bottom: 15px;
-    font-family: 'Staatliches', cursive;
-    color: white;
-    letter-spacing: 0.15em;
-    display: inline-block;
-    font-weight: lighter;
-}
-.banner-info h4:not(:first-child){
-    margin-left: 10px;
-}
-.slick-list{
-    height: 100% !important;
-}
-.slick-dots li button:before{
-    color:rgb(224,224,224) !important;
-}
-@media only screen and (max-width:1400px){
-    .header-slider{
-        /* width: 82%;
-        margin-left: 18%; */
-        height: 550px;
-    }
-    
-}
-@media only screen and (max-width:1250px){
-    .header-slider{
-        width:100%;
-        margin-left: 0;
-        height: 550px;
-    }
-    
-}
-@media only screen and (max-width:1050px){
-    .header-slider{
-        height: 500px;
-    }
-    .banner-info{
-        top: 30%;
-    }
-    
-}
-@media only screen and (max-width:680px){
-    .header-slider{
-        height: 430px;
-    }
-    .banner-info{
-        top: 20%;
-        left:0;
-        transform: translate(0%,0%);
-        padding-left: 20px;
-    }
-    
-}
-@media only screen and (max-width:550px){
-    
-    .banner-info{
-        width: 100%;
-        padding: 0 20px;
-    }
-    
+    padding: 0 20px;
+  }
 }
 
-@media only screen and (max-width:480px){
-    
-    .banner-info-wrapper h1{
-        font-size:24px;
-    }
-    
+@media only screen and (max-width: 480px) {
+  .banner-info-wrapper h1 {
+    font-size: 24px;
+  }
 }

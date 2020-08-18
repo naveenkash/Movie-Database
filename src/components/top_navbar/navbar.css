@@ -1,84 +1,63 @@
-.navbar{
-    /* height: 55px; */
-    
-    width: 100%;
-    transition: 0.3s;
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 10;
-  
+.navbar {
+  width: 100%;
+  transition: 0.3s;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 10;
 }
-.navbar-wrapper{
-    width: 100%;
-    padding: 0 40px;
-    height: auto;
+.navbar-wrapper {
+  width: 100%;
+  padding: 0 40px;
+  height: auto;
 }
-.navbar-container{
-    
-    width: 100%;
-    margin: 0 auto;
-    height: auto;
-    display: flex;
-    align-items: center;
+.navbar-container {
+  width: 100%;
+  margin: 0 auto;
+  height: auto;
+  display: flex;
+  align-items: center;
 }
 .navbar-container ul {
-    padding: 0;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    flex-direction: row;
-    margin-left: auto;
-
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: row;
+  margin-left: auto;
 }
-.navbar-container ul li{
-    list-style: none;
-    padding: 20px 15px;
+.navbar-container ul li {
+  list-style: none;
+  padding: 20px 15px;
 }
-.navbar-container ul li span{
-   text-decoration: none;
-   color: white;
-   /* text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.397); */
-   /* font-weight:700; */
-   padding: 25px 0;
-   letter-spacing: 0.10em;
-   font-size: 15px;
-   cursor: pointer;
+.navbar-container ul li span {
+  text-decoration: none;
+  color: white;
+  padding: 25px 0;
+  letter-spacing: 0.1em;
+  font-size: 15px;
+  cursor: pointer;
 }
-.burger{
-    width: 30px;
-    height: auto;
-    margin-right: auto;
-    /* display: none; */
-    cursor: pointer;
+.burger {
+  width: 30px;
+  height: auto;
+  margin-right: auto;
+  /* display: none; */
+  cursor: pointer;
 }
 
-.burger_line{
-    width: 100%;
-    background:white;
-    height: 3px;
-    margin: 5px 0;
+.burger_line {
+  width: 100%;
+  background: white;
+  height: 3px;
+  margin: 5px 0;
 }
-
-/* @media only screen and (max-width:1250px){ */
-    /* .burger{
-        display: block;
-    } */
-   /* .navbar{
-       width: 100%;
-       margin-left: 0;
-   }
-   .navbar-container{
-       width: 100%;
-   } */
-    
-/* } */
-@media only screen and (max-width:480px){
-    .navbar-container ul li span{
-        font-size:12px;
-    }
-    .navbar-wrapper{
-        padding: 0 20px;
-    }
+@media only screen and (max-width: 480px) {
+  .navbar-container ul li span {
+    font-size: 12px;
+  }
+  .navbar-wrapper {
+    padding: 0 20px;
+  }
 }

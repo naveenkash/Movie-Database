@@ -1,22 +1,20 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { slider_Movies ,genresIds} from "../../actions";
+import { slider_Movies, genresIds } from "../../actions";
 import Genre from "./genre";
 import Slider from "react-slick";
 import "./slider.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
- 
-function Title(movie) {
 
+function Title(movie) {
   if (movie.movie.original_title || movie.movie.original_name) {
     return null;
   }
-  
+
   return (
     <div className="banner-info-wrapper">
       <h1>{movie.movie.title}</h1>
-     
     </div>
   );
 }
@@ -24,7 +22,6 @@ function OriginalTitle(movie) {
   return (
     <div className="banner-info-wrapper">
       <h1>{movie.movie.title}</h1>
-     
     </div>
   );
 }
@@ -35,7 +32,6 @@ function OriginalName(movie) {
   return (
     <div className="banner-info-wrapper">
       <h1>{movie.movie.title}</h1>
-     
     </div>
   );
 }
@@ -44,18 +40,15 @@ export class slider extends Component {
     super(props);
     this.state = {
       genre: this.props.genres,
-      slider_Movies:  [],
+      slider_Movies: [],
     };
-   
   }
   componentDidMount() {
     this.props.genresIds();
     this.props.slider_Movies();
-
   }
 
   render() {
-    // {this.watchTrailer()}
     const settings = {
       dots: true,
       infinite: true,
@@ -63,18 +56,18 @@ export class slider extends Component {
       slidesToShow: 1,
       slidesToScroll: 1,
       draggable: true,
-      initialSlide:1,
-      lazyLoad:'onDemand',
+      initialSlide: 1,
+      lazyLoad: "onDemand",
       adaptiveHeight: true,
       arrows: false,
       slidesPerRow: 1,
-      mobileFirst: true
+      mobileFirst: true,
     };
-    
+
     return (
       <div className="header-slider">
         <Slider {...settings}>
-          {this.props.allMovies.slice(0, 10).map(movie => (
+          {this.props.allMovies.slice(0, 10).map((movie) => (
             <div key={movie.id} className="header-slide-container">
               <div className="header-slide">
                 <div className="overlay"></div>
@@ -83,7 +76,6 @@ export class slider extends Component {
                   alt=""
                 />
                 <div className="banner-info">
-                
                   <Genre movie={movie} genres={this.props.genres} />
                   {(() => {
                     if (!movie.title) {
@@ -103,9 +95,13 @@ export class slider extends Component {
                     }
                     return <OriginalName movie={movie} />;
                   })()}
-                  <p> {movie.overview.length>=200? movie.overview.slice(0,200)+' . . .' :movie.overview}</p>
+                  <p>
+                    {" "}
+                    {movie.overview.length >= 200
+                      ? movie.overview.slice(0, 200) + " . . ."
+                      : movie.overview}
+                  </p>
                   <h3>{movie.release_date.split("-")[0]}</h3>
-                 
                 </div>
               </div>
             </div>
@@ -116,12 +112,9 @@ export class slider extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   allMovies: state.all_Movies.slider_Movies,
   genres: state.genresIds.genreIds,
 });
 
-export default connect(
-  mapStateToProps,
-  { slider_Movies, genresIds }
-)(slider);
+export default connect(mapStateToProps, { slider_Movies, genresIds })(slider);

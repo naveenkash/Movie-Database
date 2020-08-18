@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import "./side_navbar.css";
-import '../../animate.css'
+import "../../animate.css";
 import { connect } from "react-redux";
 import {
   all_Movies,
   account_Details,
   checkAuth,
-  movie_type
+  movie_type,
 } from "../../actions";
 
 export class side_navbar extends Component {
@@ -17,22 +17,12 @@ export class side_navbar extends Component {
     this.h = true;
   }
 
-  // componentDidMount() {
-  //   this.props.checkAuth();
-  //   if (this.props.clicked) {
-  //     document.querySelector('.side_navbar').classList.add('fadeInRight');
-  //   }else{
-  //     document.querySelector('.side_navbar').classList.remove('fadeInRight');
-  //   }
-  // }
-
   getDeatil = (e, value) => {
     var side_li = document.querySelectorAll(".side_link");
     for (let i = 0; i < side_li.length; i++) {
       const element = side_li[i];
       element.style.color = "rgb(187, 187, 187)";
     }
-    // document.querySelectorAll('li').style.color="rgb(187, 187, 187)"
     this.props.all_Movies(value, 1);
     this.props.movie_type(value);
     e.target.style.color = "white";
@@ -47,26 +37,43 @@ export class side_navbar extends Component {
     this.props.account_Details(value, type, session_id);
     e.target.style.color = "white";
   };
-  hideAcc = e => {
+  hideAcc = (e) => {
     e.preventDefault();
-
-    // document.getElementById('acc').style.height="0px";
     this.setState({ showAccount: !this.state.showAccount });
   };
-  hideCategory = e => {
+  hideCategory = (e) => {
     e.preventDefault();
 
     this.setState({ showCat: !this.state.showCat });
   };
-  closeSideNav=()=>{
+  closeSideNav = () => {
     this.props.closeNav();
-  }
+  };
   render() {
     return (
       <div className="animated side_navbar fadeInLeft">
         <div className="side_navbar_wrapper">
           <div className="side_logo">
-            <div className="close" onClick={this.closeSideNav}> <i><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" className="svg-inline--fa fa-times fa-w-11" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></i> </div>
+            <div className="close" onClick={this.closeSideNav}>
+              {" "}
+              <i>
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  data-prefix="fas"
+                  data-icon="times"
+                  className="svg-inline--fa fa-times fa-w-11"
+                  role="img"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 352 512"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+                  ></path>
+                </svg>
+              </i>{" "}
+            </div>
             <h1> Filmastic</h1>
           </div>
           <div className="side_navbar_container">
@@ -83,7 +90,7 @@ export class side_navbar extends Component {
                     <li
                       className="side_link"
                       id="pop"
-                      onClick={e => {
+                      onClick={(e) => {
                         this.getDeatil(e, "popular");
                       }}
                     >
@@ -91,7 +98,7 @@ export class side_navbar extends Component {
                     </li>
                     <li
                       className="side_link"
-                      onClick={e => {
+                      onClick={(e) => {
                         this.getDeatil(e, "top_rated");
                       }}
                     >
@@ -99,7 +106,7 @@ export class side_navbar extends Component {
                     </li>
                     <li
                       className="side_link"
-                      onClick={e => {
+                      onClick={(e) => {
                         this.getDeatil(e, "now_playing");
                       }}
                     >
@@ -107,13 +114,12 @@ export class side_navbar extends Component {
                     </li>
                     <li
                       className="side_link"
-                      onClick={e => {
+                      onClick={(e) => {
                         this.getDeatil(e, "upcoming");
                       }}
                     >
                       Upcoming
                     </li>
-                    {/* <li onClick={this.latestMovies}>Latest</li> */}
                   </ul>
                 );
               })()}
@@ -131,7 +137,7 @@ export class side_navbar extends Component {
                     <ul>
                       <li
                         className="side_link"
-                        onClick={e => {
+                        onClick={(e) => {
                           this.getAccountDetail(e, "watchlist", "movies");
                         }}
                       >
@@ -139,13 +145,12 @@ export class side_navbar extends Component {
                       </li>
                       <li
                         className="side_link"
-                        onClick={e => {
+                        onClick={(e) => {
                           this.getAccountDetail(e, "favorite", "movies");
                         }}
                       >
                         Favorite
                       </li>
-                      {/* <li className="side_link" onClick={(e)=>{this.getAccountDetail(e,'rated','movies')}}>Rated</li> */}
                     </ul>
                   );
                 }
@@ -158,11 +163,13 @@ export class side_navbar extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 });
 
-export default connect(
-  mapStateToProps,
-  { all_Movies, account_Details, checkAuth, movie_type }
-)(side_navbar);
+export default connect(mapStateToProps, {
+  all_Movies,
+  account_Details,
+  checkAuth,
+  movie_type,
+})(side_navbar);

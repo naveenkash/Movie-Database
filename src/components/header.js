@@ -2,43 +2,28 @@ import React, { Component } from "react";
 import Slider from "./header_slider/slider";
 import SideNavbar from "./side_navbar/side_navbar";
 import Movies from "./movies/movies";
-
 import MovieDetail from "./movies/movie_detail";
 export class header extends Component {
   constructor(props) {
     super(props);
     this.state = { showDetail: false, showSideNav: false };
   }
-  showDetail = showMovieDetail => {
+  showDetail = (showMovieDetail) => {
     this.setState({ showDetail: showMovieDetail });
   };
-  setMovie = movie => {
+  setMovie = (movie) => {
     this.setState({ movie: movie });
   };
-  close = closeDetail => {
+  close = (closeDetail) => {
     this.setState({ showDetail: closeDetail });
   };
-  // UNSAFE_componentWillReceiveProps() {
-  //   //
-  //   console.log(this.props.open, this.state.showSideNav);
-
-  //   if (this.props.open) {
-  //     this.setState({ showSideNav: this.props.open }, () => {
-  //       console.log(this.state.showSideNav);
-  //     });
-  //   }
-
-  //   console.log(this.props.open, this.state.showSideNav);
-  // }
   closeSideNav = () => {
     this.props.closeSide();
-    // this.setState({ showSideNav: false });
   };
   render() {
     return (
       <div>
         <div className="header">
-          {/* <SideNavbar closeNav={this.closeSideNav} clicked={this.state.showSideNav}/> */}
           {(() => {
             if (!this.props.open) {
               return null;
