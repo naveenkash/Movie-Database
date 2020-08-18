@@ -14,12 +14,10 @@ export class App extends Component {
   }
   openSideNav = () => {
     this.setState({ open: true }, () => {
-      console.log(this.state.open);
     });
   };
   closeSideNav = () => {
     this.setState({ open: false }, () => {
-      console.log(this.state.open);
     });
   };
   request = (tokenRequested) => {
