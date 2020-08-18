@@ -110,7 +110,7 @@ export const getVideoUrl = (movies) => (dispatch) => {
   }
 };
 
-export const genresIds = () => (dispatch) => {
+export const genreIds = () => (dispatch) => {
   fetch(
     `https://api.themoviedb.org/3/genre/movie/list?api_key=${api_key}&language=en-US`
   )

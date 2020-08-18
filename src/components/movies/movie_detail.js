@@ -36,7 +36,7 @@ export class movie_detail extends Component {
             key: data.results[0].key,
           });
 
-          const GENRES_ARRAY = store.getState().genresIds.genreIds;
+          const GENRES_ARRAY = store.getState().genreIds.genreIds;
 
           this.props.movie.genre_ids.forEach((movie_id) => {
             GENRES_ARRAY.forEach((single_genre) => {

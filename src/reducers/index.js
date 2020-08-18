@@ -5,7 +5,7 @@ import { combineReducers } from "redux";
 
 const allReducers = combineReducers({
   all_Movies: all_Movies,
-  genresIds: add_Genres,
+  genreIds: add_Genres,
   auth: auth,
 });
 export default allReducers;
