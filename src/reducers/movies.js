@@ -1,6 +1,5 @@
 const initialState = {
   movies: [],
-  moviesVideoUrl: [],
   slider_Movies: [],
   type: "",
 };
