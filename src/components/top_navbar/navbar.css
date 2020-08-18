@@ -5,6 +5,7 @@
   top: 0;
   right: 0;
   z-index: 10;
+  background-color: white;
 }
 .navbar-wrapper {
   width: 100%;
@@ -33,7 +34,7 @@
 }
 .navbar-container ul li span {
   text-decoration: none;
-  color: white;
+  color: rgb(0, 0, 0);
   padding: 25px 0;
   letter-spacing: 0.1em;
   font-size: 15px;
@@ -43,13 +44,12 @@
   width: 30px;
   height: auto;
   margin-right: auto;
-  /* display: none; */
   cursor: pointer;
 }
 
 .burger_line {
   width: 100%;
-  background: white;
+  background: rgb(0, 0, 0);
   height: 3px;
   margin: 5px 0;
 }

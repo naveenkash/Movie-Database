@@ -13,29 +13,28 @@ export class side_navbar extends Component {
   constructor(props) {
     super(props);
     this.state = { showAccount: true, showCat: true, auth: this.props.auth };
-
     this.h = true;
   }
 
-  getDeatil = (e, value) => {
+  getDetail = (e, value) => {
     var side_li = document.querySelectorAll(".side_link");
     for (let i = 0; i < side_li.length; i++) {
       const element = side_li[i];
-      element.style.color = "rgb(187, 187, 187)";
+      element.style.color = "rgb(53, 53, 53)";
     }
     this.props.all_Movies(value, 1);
     this.props.movie_type(value);
-    e.target.style.color = "white";
+    e.target.style.color = "black";
   };
   getAccountDetail = (e, value, type) => {
     var side_li = document.querySelectorAll(".side_link");
     for (let i = 0; i < side_li.length; i++) {
       const element = side_li[i];
-      element.style.color = "rgb(187, 187, 187)";
+      element.style.color = "rgb(53, 53, 53)";
     }
     var session_id = localStorage.getItem("session_id");
     this.props.account_Details(value, type, session_id);
-    e.target.style.color = "white";
+    e.target.style.color = "black";
   };
   hideAcc = (e) => {
     e.preventDefault();
@@ -74,7 +73,7 @@ export class side_navbar extends Component {
                 </svg>
               </i>{" "}
             </div>
-            <h1> Filmastic</h1>
+            <h1>Menu</h1>
           </div>
           <div className="side_navbar_container">
             <div className="side_category">
@@ -91,46 +90,51 @@ export class side_navbar extends Component {
                       className="side_link"
                       id="pop"
                       onClick={(e) => {
-                        this.getDeatil(e, "popular");
+                        this.getDetail(e, "popular");
                       }}
                     >
-                      Popular
+                      <span>Popular</span>
                     </li>
                     <li
                       className="side_link"
                       onClick={(e) => {
-                        this.getDeatil(e, "top_rated");
+                        this.getDetail(e, "top_rated");
                       }}
                     >
-                      Top Rated
+                      <span> Top Rated</span>
                     </li>
                     <li
                       className="side_link"
                       onClick={(e) => {
-                        this.getDeatil(e, "now_playing");
+                        this.getDetail(e, "now_playing");
                       }}
                     >
-                      Now Playing
+                      <span>Now Playing</span>
                     </li>
                     <li
                       className="side_link"
                       onClick={(e) => {
-                        this.getDeatil(e, "upcoming");
+                        this.getDetail(e, "upcoming");
                       }}
                     >
-                      Upcoming
+                      <span>Upcoming</span>
                     </li>
                   </ul>
                 );
               })()}
-              <h1 onClick={this.hideAcc} className="side_category_head">
-                Account
-              </h1>
 
               {(() => {
-                if (!this.props.auth) {
-                  return null;
-                } else if (!this.state.showAccount) {
+                if (this.props.auth) {
+                  return (
+                    <h1 onClick={this.hideAcc} className="side_category_head">
+                      Account
+                    </h1>
+                  );
+                }
+              })()}
+
+              {(() => {
+                if (this.state.showAccount) {
                   return null;
                 } else {
                   return (
@@ -141,7 +145,7 @@ export class side_navbar extends Component {
                           this.getAccountDetail(e, "watchlist", "movies");
                         }}
                       >
-                        Watchlist
+                        <span>Watchlist</span>
                       </li>
                       <li
                         className="side_link"
@@ -149,7 +153,7 @@ export class side_navbar extends Component {
                           this.getAccountDetail(e, "favorite", "movies");
                         }}
                       >
-                        Favorite
+                        <span>Favorite</span>
                       </li>
                     </ul>
                   );

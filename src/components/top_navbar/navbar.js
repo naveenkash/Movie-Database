@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./navbar.css";
 import { checkAuth, addSessionId } from "../../actions";
 import { connect } from "react-redux";
-var api_key = process.env.REACT_APP_API_KEY;
 export class navbar extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +14,6 @@ export class navbar extends Component {
   }
   componentDidMount() {
     window.addEventListener("scroll", this.handleScroll);
-    this.setState({ session_id: localStorage.getItem("session_id") });
   }
   componentWillUnmount() {
     window.removeEventListener("scroll", this.handleScroll);
@@ -33,87 +31,13 @@ export class navbar extends Component {
   scroll = () => {
     if (this.state.scrolled) {
       return {
-        background: "rgba(40, 40, 40,1)",
+        boxShadow: "0px 3px 10px -1px rgba(204,204,204,0.75)",
       };
     }
   };
-  scrollLink = () => {
-    if (this.state.scrolled) {
-      return {
-        color: "white",
-      };
-    }
-  };
-  ScrollWrap = () => {
-    if (this.state.scrolled) {
-      return {
-        padding: "15px 15px",
-      };
-    }
-  };
-  requestToken = () => {
-    fetch(
-      `https://api.themoviedb.org/3/authentication/token/new?api_key=${api_key}`
-    )
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        localStorage.setItem("request_token", data.request_token);
-        window.open(
-          `https://www.themoviedb.org/authenticate/${data.request_token}`,
-          "_blank"
-        );
-        this.setState({ tokenRequested: true }, () => {
-          this.props.tokenRequested(this.state.tokenRequested);
-        });
-        this.props.checkAuth();
-      })
-      .catch((err) => {
-        alert(err);
-      });
-  };
-  requestGuestToken = () => {
-    fetch(
-      `https://api.themoviedb.org/3/authentication/guest_session/new?api_key=${api_key}`
-    )
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-        localStorage.setItem("session_id", data.guest_session_id);
-        this.props.checkAuth();
-      })
-      .catch((err) => {
-        alert(err);
-      });
-  };
-  logOut = () => {
-    fetch(
-      `https://api.themoviedb.org/3/authentication/session?api_key=${api_key}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-type": "application/json; charset-UTF-8",
-        },
-        body: JSON.stringify({
-          session_id: localStorage.getItem("session_id"),
-        }),
-      }
-    )
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-        localStorage.removeItem("session_id");
-        this.props.checkAuth();
-      })
-      .catch((err) => {
-        alert(err);
-      });
-  };
+  signUp = () => {};
+  logIn = () => {};
+  logOut = () => {};
   burgerClicked = () => {
     this.setState({ burgerClicked: true }, () => {
       this.props.clicked(this.state.burgerClicked);
@@ -135,25 +59,19 @@ export class navbar extends Component {
                   return null;
                 }
                 return (
-                  <li style={this.ScrollWrap()}>
-                    <span style={this.scrollLink()} onClick={this.requestToken}>
-                      Sign up
-                    </span>
+                  <li>
+                    <span onClick={this.signUp}>Signup</span>
                   </li>
                 );
               })()}
+
               {(() => {
                 if (this.props.auth) {
                   return null;
                 }
                 return (
-                  <li style={this.ScrollWrap()}>
-                    <span
-                      onClick={this.requestGuestToken}
-                      style={this.scrollLink()}
-                    >
-                      Guest Sign Up
-                    </span>
+                  <li>
+                    <span onClick={this.logIn}>Login</span>
                   </li>
                 );
               })()}
@@ -163,10 +81,8 @@ export class navbar extends Component {
                   return null;
                 }
                 return (
-                  <li style={this.ScrollWrap()}>
-                    <span style={this.scrollLink()} onClick={this.logOut}>
-                      Log Out
-                    </span>
+                  <li>
+                    <span onClick={this.logOut}>Log Out</span>
                   </li>
                 );
               })()}
