@@ -11,7 +11,7 @@
 .movie_info_wrapper {
   width: 1250px;
   margin: 0px auto;
-  background: #282828;
+  background: #ffffff;
   position: relative;
   top: 50%;
   transform: translate(0, -50%);
@@ -38,7 +38,7 @@
   height: auto;
   display: grid;
   grid-template-columns: 1fr 0.75fr;
-  background: #282828;
+  background: #ffffff;
   height: 300px;
 }
 
@@ -102,17 +102,17 @@
 .movie_info_detail h1 {
   font-weight: lighter;
   font-size: 22px;
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 .movie_info_detail p {
   font-size: 15px;
-  color: rgb(224, 224, 224);
+  color: rgb(0, 0, 0);
   margin-bottom: 15px;
 }
 .movie_info_detail h4 {
   font-size: 15px;
-  color: white;
+  color: rgb(0, 0, 0);
   margin-bottom: 15px;
 }
 
@@ -121,7 +121,7 @@
 }
 .director h1 {
   font-weight: lighter;
-  color: rgb(224, 224, 224);
+  color: rgb(0, 0, 0);
 }
 .director:not(:first-child) {
   margin-left: 10px;
@@ -132,7 +132,7 @@
   align-items: flex-start;
 }
 .movie_video h1 {
-  color: white;
+  color: rgb(0, 0, 0);
   font-weight: lighter;
 }
 
