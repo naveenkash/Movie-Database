@@ -22,81 +22,13 @@ export class movies extends Component {
     this.props.movie_type("popular");
   }
 
-  SeeDeatil = (movie) => {
+  seeDetail = (movie) => {
     var showMovieDetail = true;
     this.props.detail(showMovieDetail);
     this.props.movie(movie);
   };
-  addToWatchList = (e, movie) => {
-    if (!localStorage.getItem("session_id")) {
-      alert("Login");
-      return;
-    }
-    var Session_Id = localStorage.getItem("session_id");
-    fetch(
-      `https://api.themoviedb.org/3/account/{account_id}/watchlist?api_key=25050db00f2ae7ba0e6b1631fc0d272f&session_id=${Session_Id}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json; charset-UTF-8",
-        },
-        body: JSON.stringify({
-          media_type: "movie",
-          media_id: movie.id,
-          watchlist: true,
-        }),
-      }
-    )
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        alert(data.status_message);
-        if (data.state_code === 3) {
-          return;
-        }
-      })
-      .catch((err) => {
-        alert(err);
-      });
-  };
-  addToFavorite = (e, movie) => {
-    if (!localStorage.getItem("session_id")) {
-      alert("Login");
-      return;
-    }
-
-    var Session_Id = localStorage.getItem("session_id");
-    if (!Session_Id) {
-      return alert("Login Before Adding");
-    }
-    fetch(
-      `https://api.themoviedb.org/3/account/{account_id}/favorite?api_key=25050db00f2ae7ba0e6b1631fc0d272f&session_id=${Session_Id}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json; charset-UTF-8",
-        },
-        body: JSON.stringify({
-          media_type: "movie",
-          media_id: movie.id,
-          favorite: true,
-        }),
-      }
-    )
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        alert(data.status_message);
-        if (data.state_code === 3) {
-          return;
-        }
-      })
-      .catch((err) => {
-        alert(err);
-      });
-  };
+  addToWatchList = (movie) => {};
+  addToFavorite = (movie) => {};
 
   render() {
     return (
@@ -106,7 +38,7 @@ export class movies extends Component {
             <div key={movie.id} className="movie_container">
               <div
                 onClick={() => {
-                  this.SeeDeatil(movie);
+                  this.seeDetail(movie);
                 }}
                 className="movie_poster"
               >
@@ -119,19 +51,19 @@ export class movies extends Component {
                 <div className="movie_name">
                   <h4
                     onClick={() => {
-                      this.SeeDeatil(movie);
+                      this.seeDetail(movie);
                     }}
                   >
-                    {" "}
                     {movie.title}
                   </h4>
                   <p>{movie.release_date.split("-")[0]}</p>
                 </div>
                 <div className="movie_rating">
                   <i
+                    id="favorite"
                     title="Add To Favorite"
                     onClick={(e) => {
-                      this.addToFavorite(e, movie);
+                      this.addToFavorite(movie);
                     }}
                   >
                     <svg
@@ -152,7 +84,7 @@ export class movies extends Component {
                   </i>
                   <div
                     onClick={(e) => {
-                      this.addToWatchList(e, movie);
+                      this.addToWatchList(movie);
                     }}
                     className="add_to_waatchlist"
                   >
