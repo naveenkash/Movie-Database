@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { slider_Movies, genreIds } from "../../actions";
+import { sliderMovies, genreIds } from "../../actions";
 import Genre from "./genre";
 import Slider from "react-slick";
 import "./slider.css";
@@ -40,12 +40,12 @@ export class slider extends Component {
     super(props);
     this.state = {
       genre: this.props.genres,
-      slider_Movies: [],
+      sliderMovies: [],
     };
   }
   componentDidMount() {
     this.props.genreIds();
-    this.props.slider_Movies();
+    this.props.sliderMovies();
   }
 
   render() {
@@ -113,8 +113,8 @@ export class slider extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  allMovies: state.all_Movies.slider_Movies,
+  allMovies: state.movies.sliderMovies,
   genres: state.genreIds.genreIds,
 });
 
-export default connect(mapStateToProps, { slider_Movies, genreIds })(slider);
+export default connect(mapStateToProps, { sliderMovies, genreIds })(slider);

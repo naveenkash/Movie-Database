@@ -1,10 +1,10 @@
-// import {api_key } from '../process.env'
-var api_key = process.env.REACT_APP_API_KEY;
-
-export const all_Movies = (movie, page_number) => {
+import jwt from "jsonwebtoken";
+var API_KEY = process.env.REACT_APP_API_KEY;
+var JWT_ACCESS_TOKEN_SECERET = process.env.REACT_APP_JWT_ACCESS_TOKEN_SECERET;
+export const addMovies = (movie, page_number) => {
   return (dispatch) => {
     fetch(
-      `https://api.themoviedb.org/3/movie/${movie}?api_key=${api_key}&language=en-US&page=${page_number}`
+      `https://api.themoviedb.org/3/movie/${movie}?api_key=${API_KEY}&language=en-US&page=${page_number}`
     )
       .then((res) => res.json())
       .then((movies) => {
@@ -26,27 +26,45 @@ export const movie_type = (type) => {
     });
   };
 };
-export const checkAuth = () => {
+export const isLoggedIn = () => {
   return (dispatch) => {
-    var id = localStorage.getItem("session_id");
-    if (id) {
-      dispatch({
-        type: "CHECK_AUTH",
-        payload: true,
+    var token = localStorage.getItem("token");
+    if (token) {
+      jwt.verify(token, JWT_ACCESS_TOKEN_SECERET, (err, decodedToken) => {
+        if (err) {
+          localStorage.removeItem("token");
+          dispatch({
+            type: "IS_LOGGED_IN",
+            payload: false,
+          });
+          return;
+        }
+        if (decodedToken.exp * 1000 < Date.now()) {
+          localStorage.removeItem("token");
+          dispatch({
+            type: "IS_LOGGED_IN",
+            payload: false,
+          });
+          return;
+        } else {
+          dispatch({
+            type: "IS_LOGGED_IN",
+            payload: true,
+          });
+        }
       });
-      return;
     } else {
       dispatch({
-        type: "CHECK_AUTH",
+        type: "IS_LOGGED_IN",
         payload: false,
       });
     }
   };
 };
-export const slider_Movies = () => {
+export const sliderMovies = () => {
   return (dispatch) => {
     fetch(
-      `https://api.themoviedb.org/3/movie/popular?api_key=${api_key}&language=en-US&page=1`
+      `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`
     )
       .then((res) => res.json())
       .then((movies) => {
@@ -60,23 +78,26 @@ export const slider_Movies = () => {
       });
   };
 };
-export const account_Details = (type, typeofProgramm, session) => {
+export const getUserMovies = (type) => {
   return (dispatch) => {
-    fetch(
-      `https://api.themoviedb.org/3/account/{account_id}/${type}/${typeofProgramm}?api_key=${api_key}&session_id=${session}&sort_by=created_at.asc&language=en-US&page=1`
-    )
+    fetch(`http://localhost:8080/user/movies?type=${type}`, {
+      headers: {
+        "content-type": "application/json",
+        Accept: "application/json",
+      },
+    })
       .then((res) => res.json())
-      .then((movies) => {
-        alert(movies.status_message);
-        if (movies.status_code === 3) {
+      .then((data) => {
+        if (data.err) {
+          alert(data.err);
           return;
         }
-        if (movies.results.length <= 0) {
+        if (data.results.length <= 0) {
           return;
         }
         dispatch({
           type: "ADD_ACCOUNT_DETAIL",
-          payload: movies,
+          payload: data,
         });
       })
       .catch((err) => {
@@ -93,7 +114,7 @@ export const getVideoUrl = (movies) => (dispatch) => {
   for (let i = 0; i < movies.length; i++) {
     const element = movies[i];
     fetch(
-      `https://api.themoviedb.org/3/movie/${element.id}/videos?api_key=${api_key}&language=en-US`
+      `https://api.themoviedb.org/3/movie/${element.id}/videos?api_key=${API_KEY}&language=en-US`
     )
       .then((res) => {
         return res.json();
@@ -112,7 +133,7 @@ export const getVideoUrl = (movies) => (dispatch) => {
 
 export const genreIds = () => (dispatch) => {
   fetch(
-    `https://api.themoviedb.org/3/genre/movie/list?api_key=${api_key}&language=en-US`
+    `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`
   )
     .then((res) => res.json())
     .then((genreIds) =>
@@ -121,10 +142,4 @@ export const genreIds = () => (dispatch) => {
         payload: genreIds.genres,
       })
     );
-};
-export const addSessionId = (token) => (dispatch) => {
-  dispatch({
-    type: "ADD_TOKEN",
-    payload: token,
-  });
 };

@@ -2,7 +2,7 @@ const auth = false;
 
 const add_auth = (state = auth, action) => {
   switch (action.type) {
-    case "CHECK_AUTH":
+    case "IS_LOGGED_IN":
       return action.payload;
 
     default:

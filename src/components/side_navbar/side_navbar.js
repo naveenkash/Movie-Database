@@ -3,9 +3,9 @@ import "./side_navbar.css";
 import "../../animate.css";
 import { connect } from "react-redux";
 import {
-  all_Movies,
-  account_Details,
-  checkAuth,
+  addMovies,
+  getUserMovies,
+  isLoggedIn,
   movie_type,
 } from "../../actions";
 
@@ -13,7 +13,6 @@ export class side_navbar extends Component {
   constructor(props) {
     super(props);
     this.state = { showAccount: true, showCat: true, auth: this.props.auth };
-    this.h = true;
   }
 
   getDetail = (e, value) => {
@@ -22,18 +21,17 @@ export class side_navbar extends Component {
       const element = side_li[i];
       element.style.color = "rgb(53, 53, 53)";
     }
-    this.props.all_Movies(value, 1);
+    this.props.addMovies(value, 1);
     this.props.movie_type(value);
     e.target.style.color = "black";
   };
-  getAccountDetail = (e, value, type) => {
+  getUserMovies = (e, value, type) => {
     var side_li = document.querySelectorAll(".side_link");
     for (let i = 0; i < side_li.length; i++) {
       const element = side_li[i];
       element.style.color = "rgb(53, 53, 53)";
     }
-    var session_id = localStorage.getItem("session_id");
-    this.props.account_Details(value, type, session_id);
+    this.props.getUserMovies(type);
     e.target.style.color = "black";
   };
   hideAcc = (e) => {
@@ -42,7 +40,6 @@ export class side_navbar extends Component {
   };
   hideCategory = (e) => {
     e.preventDefault();
-
     this.setState({ showCat: !this.state.showCat });
   };
   closeSideNav = () => {
@@ -142,7 +139,7 @@ export class side_navbar extends Component {
                       <li
                         className="side_link"
                         onClick={(e) => {
-                          this.getAccountDetail(e, "watchlist", "movies");
+                          this.getUserMovies(e, "watchlist");
                         }}
                       >
                         <span>Watchlist</span>
@@ -150,7 +147,7 @@ export class side_navbar extends Component {
                       <li
                         className="side_link"
                         onClick={(e) => {
-                          this.getAccountDetail(e, "favorite", "movies");
+                          this.getUserMovies(e, "favorite");
                         }}
                       >
                         <span>Favorite</span>
@@ -172,8 +169,8 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  all_Movies,
-  account_Details,
-  checkAuth,
+  addMovies,
+  getUserMovies,
+  isLoggedIn,
   movie_type,
 })(side_navbar);

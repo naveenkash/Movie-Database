@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { all_Movies, movie_type } from "../../actions";
+import { addMovies, movie_type } from "../../actions";
 import store from "../../store";
 import "./movie.css";
 import Pagination from "./pagination";
@@ -11,17 +11,19 @@ export class movies extends Component {
       movies: this.props.movies,
       account_state: [],
     };
-    store.subscribe(() => {
-      if (store.getState().all_Movies.movies.length >= 1) {
-        this.setState({ movies: store.getState().all_Movies.movies });
+    this.unSubscribe = store.subscribe(() => {
+      if (store.getState().movies.movies.length >= 1) {
+        this.setState({ movies: store.getState().movies.movies });
       }
     });
   }
   componentDidMount() {
-    this.props.all_Movies("popular", 1);
+    this.props.addMovies("popular", 1);
     this.props.movie_type("popular");
   }
-
+  componentWillUnmount() {
+    this.unSubscribe();
+  }
   seeDetail = (movie) => {
     var showMovieDetail = true;
     this.props.detail(showMovieDetail);
@@ -43,6 +45,7 @@ export class movies extends Component {
                 className="movie_poster"
               >
                 <img
+                  loading="lazy"
                   src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
                   alt=""
                 />
@@ -144,8 +147,8 @@ export class movies extends Component {
   }
 }
 const mapStateToProps = (state) => ({
-  movies: state.all_Movies.movies,
-  pages: state.all_Movies.total_pages,
+  movies: state.movies.movies,
+  pages: state.movies.total_pages,
 });
 
-export default connect(mapStateToProps, { all_Movies, movie_type })(movies);
+export default connect(mapStateToProps, { addMovies, movie_type })(movies);

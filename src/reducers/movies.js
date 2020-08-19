@@ -1,9 +1,9 @@
 const initialState = {
   movies: [],
-  slider_Movies: [],
+  sliderMovies: [],
   type: "",
 };
-const all_Movies = (state = initialState, action) => {
+const movies = (state = initialState, action) => {
   switch (action.type) {
     case "ADD_MOVIES":
       return {
@@ -22,7 +22,7 @@ const all_Movies = (state = initialState, action) => {
     case "ADD_MOVIES_TO_SLIDER":
       return {
         ...state,
-        slider_Movies: action.payload,
+        sliderMovies: action.payload,
       };
     case "ADD_TYPE":
       return {
@@ -34,4 +34,4 @@ const all_Movies = (state = initialState, action) => {
       return state;
   }
 };
-export default all_Movies;
+export default movies;

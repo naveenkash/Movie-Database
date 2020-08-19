@@ -1,7 +1,7 @@
 import React from "react";
 import "./pagination.css";
 import { connect } from "react-redux";
-import { all_Movies } from "../../actions";
+import { addMovies } from "../../actions";
 export class Pagination extends React.Component {
   constructor(props) {
     super(props);
@@ -82,7 +82,7 @@ export class Pagination extends React.Component {
     });
   };
   loadPage = (number) => {
-    this.props.all_Movies(this.props.type, number);
+    this.props.addMovies(this.props.type, number);
   };
   render() {
     return (
@@ -105,7 +105,7 @@ export class Pagination extends React.Component {
   }
 }
 const mapStateToProps = (state) => ({
-  type: state.all_Movies.type,
-  pages: state.all_Movies.total_pages,
+  type: state.movies.type,
+  pages: state.movies.total_pages,
 });
-export default connect(mapStateToProps, { all_Movies })(Pagination);
+export default connect(mapStateToProps, { addMovies })(Pagination);
