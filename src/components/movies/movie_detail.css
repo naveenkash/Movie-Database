@@ -88,6 +88,7 @@
   height: 100%;
   width: 100%;
   overflow-y: scroll;
+  background: white;
 }
 .movie_info_detail::-webkit-scrollbar {
   width: 5px;
@@ -241,9 +242,6 @@
     height: 80vh;
     grid-template-columns: 1fr;
     background: none;
-  }
-  .movie_info_detail {
-    background: #282828;
   }
   .close_detail {
     top: -40px;
