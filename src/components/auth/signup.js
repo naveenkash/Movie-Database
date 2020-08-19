@@ -28,7 +28,7 @@ export class Signup extends Component {
     data.email = email.value;
     data.lastname = lastname.value;
     data.password = password.value;
-    fetch("http://url.com/auth/signup/local", {
+    fetch("http://localhost:8080/auth/signup/local", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -39,7 +39,7 @@ export class Signup extends Component {
       .then((res) => res.json())
       .then((data) => {
         if (data.err) {
-          alert("Something went wrong please try again later");
+          alert(data.err);
           return;
         }
         localStorage.setItem("token", data.token);
