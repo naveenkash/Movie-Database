@@ -23,7 +23,7 @@ export class Login extends Component {
     var data = {};
     data.email = email.value;
     data.password = password.value;
-    fetch("http://localhost:8080/auth/login/local", {
+    fetch("https://immense-coast-18153.herokuapp.com/auth/login/local", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -28,7 +28,7 @@ export class Signup extends Component {
     data.email = email.value;
     data.lastname = lastname.value;
     data.password = password.value;
-    fetch("http://localhost:8080/auth/signup/local", {
+    fetch("https://immense-coast-18153.herokuapp.com/auth/signup/local", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
