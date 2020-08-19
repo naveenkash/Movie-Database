@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./navbar.css";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { isLoggedIn } from "../../actions";
 export class navbar extends Component {
   constructor(props) {
     super(props);
@@ -37,6 +38,7 @@ export class navbar extends Component {
   };
   logOut = () => {
     localStorage.removeItem("token");
+    this.props.isLoggedIn();
   };
   burgerClicked = () => {
     this.setState({ burgerClicked: true }, () => {
@@ -105,4 +107,4 @@ export class navbar extends Component {
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
-export default connect(mapStateToProps, {})(navbar);
+export default connect(mapStateToProps, { isLoggedIn })(navbar);
