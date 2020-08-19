@@ -2,6 +2,7 @@ import React from "react";
 import "./pagination.css";
 import { connect } from "react-redux";
 import { addMovies } from "../../actions";
+import store from "../../store";
 export class Pagination extends React.Component {
   constructor(props) {
     super(props);
@@ -10,24 +11,48 @@ export class Pagination extends React.Component {
       last: 10,
       pageNumber: [],
       slicedPage: [],
+      paginated: false,
     };
+    this.unSubscribe = store.subscribe(() => {
+      if (store.getState().movies.total_pages < 10) {
+        this.setState({
+          pageNumber: new Array(this.props.pages)
+            .fill(null)
+            .map((item, i) => i + 1),
+          slicedPage: new Array(this.props.pages)
+            .fill(null)
+            .map((item, i) => i + 1),
+          paginated: false,
+        });
+      } else if (
+        !this.state.paginated &&
+        store.getState().movies.total_pages > 10
+      ) {
+        this.createPagesArray();
+      }
+    });
   }
   componentDidMount() {
-    if (this.props.pages) {
-      var lclArray = [];
-      for (let i = 1; i < this.props.pages; i++) {
-        lclArray.push(i);
-      }
-      this.setState({ pageNumber: lclArray }, () => {
-        this.setState({
-          slicedPage: this.state.pageNumber.slice(
-            this.state.one,
-            this.state.last
-          ),
-        });
-      });
-    }
+    this.createPagesArray();
   }
+  componentWillUnmount() {
+    this.unSubscribe();
+  }
+  createPagesArray = () => {
+    var lclArray = [];
+    for (let i = 1; i < this.props.pages; i++) {
+      lclArray.push(i);
+    }
+    this.setState({ pageNumber: lclArray }, () => {
+      this.setState({
+        slicedPage: this.state.pageNumber.slice(
+          this.state.one,
+          this.state.last
+        ),
+      });
+    });
+  };
+
   onPageNumClicked = (e, number) => {
     var liBtns = document.querySelectorAll(".pagination_link button");
     for (let i = 0; i < liBtns.length; i++) {
@@ -79,6 +104,7 @@ export class Pagination extends React.Component {
     this.loadPage(number);
     this.setState({
       slicedPage: this.state.pageNumber.slice(o - 1, l),
+      paginated: true,
     });
   };
   loadPage = (number) => {
