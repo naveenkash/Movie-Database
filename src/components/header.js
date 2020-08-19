@@ -1,47 +1,31 @@
 import React, { Component } from "react";
+import Navbar from "./top_navbar/navbar";
 import Slider from "./header_slider/slider";
 import SideNavbar from "./side_navbar/side_navbar";
-import Movies from "./movies/movies";
-import MovieDetail from "./movies/movie_detail";
 export class header extends Component {
   constructor(props) {
     super(props);
-    this.state = { showDetail: false, showSideNav: false };
+    this.state = { open: false, showSideNav: false };
   }
-  showDetail = (showMovieDetail) => {
-    this.setState({ showDetail: showMovieDetail });
-  };
-  setMovie = (movie) => {
-    this.setState({ movie: movie });
-  };
-  close = (closeDetail) => {
-    this.setState({ showDetail: closeDetail });
+  openSideNav = () => {
+    this.setState({ open: true }, () => {});
   };
   closeSideNav = () => {
-    this.props.closeSide();
+    this.setState({ open: false }, () => {});
   };
   render() {
     return (
       <div>
         <div className="header">
+          <Navbar clicked={this.openSideNav} />
           {(() => {
-            if (!this.props.open) {
+            if (!this.state.open) {
               return null;
             }
             return <SideNavbar closeNav={this.closeSideNav} />;
           })()}
           <Slider />
         </div>
-        <Movies detail={this.showDetail} movie={this.setMovie} />
-        {(() => {
-          if (!this.state.showDetail) {
-            return null;
-          } else {
-            return (
-              <MovieDetail closeDetail={this.close} movie={this.state.movie} />
-            );
-          }
-        })()}
       </div>
     );
   }

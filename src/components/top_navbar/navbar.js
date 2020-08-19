@@ -8,9 +8,6 @@ export class navbar extends Component {
     super(props);
     this.state = {
       scrolled: false,
-      session_id: "",
-      burgerClicked: false,
-      tokenRequested: false,
     };
   }
   componentDidMount() {
@@ -41,9 +38,7 @@ export class navbar extends Component {
     this.props.isLoggedIn();
   };
   burgerClicked = () => {
-    this.setState({ burgerClicked: true }, () => {
-      this.props.clicked(this.state.burgerClicked);
-    });
+      this.props.clicked();
   };
   render() {
     return (
