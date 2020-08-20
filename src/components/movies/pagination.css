@@ -35,8 +35,13 @@
   box-shadow: none;
 }
 @media only screen and (max-width: 480px) {
-  .pagination_link {
-    margin: 0;
+  .pagination_wrapper {
+    width: 100%;
+    padding: 0 10px;
+  }
+  .pagination_link button {
+    width: 25px;
+    height: 25px;
   }
   .pagination_link button {
     padding: 6px 8px;

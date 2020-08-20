@@ -3,6 +3,7 @@
   height: auto;
   background: #ffffff;
   margin: 0 auto;
+  margin-top: 20px;
 }
 .movie_wrapper {
   width: 100%;
@@ -11,13 +12,12 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   margin-right: auto;
-  grid-column-gap: 25px;
+  grid-column-gap: 12.5px;
   grid-row-gap: 15px;
 }
 .movie_container {
   width: 100%;
   height: auto;
-  margin: 15px 0;
   overflow: hidden;
   transition: 0.3s;
   background: rgb(255, 255, 255);

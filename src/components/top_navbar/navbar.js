@@ -55,6 +55,9 @@ export class navbar extends Component {
               <div className="burger_line"></div>
               <div className="burger_line"></div>
             </div>
+            <h3>
+              <Link to="/">Movie Database</Link>
+            </h3>
             <ul>
               {(() => {
                 if (this.props.auth) {
