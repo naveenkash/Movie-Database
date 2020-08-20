@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Navbar from "../top_navbar/navbar";
-import Slider from "../header_slider/slider";
 import SideNavbar from "../side_navbar/side_navbar";
 export class header extends Component {
   constructor(props) {
@@ -24,7 +23,6 @@ export class header extends Component {
             }
             return <SideNavbar closeNav={this.closeSideNav} />;
           })()}
-          <Slider />
         </div>
       </div>
     );

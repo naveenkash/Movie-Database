@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Movies from "../movies/movies";
 import MovieDetail from "../movies/movie_detail";
+import Slider from "../header_slider/slider";
 import { connect } from "react-redux";
 export class Movielayout extends Component {
   constructor(props) {
@@ -22,6 +23,7 @@ export class Movielayout extends Component {
   render() {
     return (
       <>
+        <Slider />
         <Movies
           detail={this.showDetail}
           pages={this.props.pages}
