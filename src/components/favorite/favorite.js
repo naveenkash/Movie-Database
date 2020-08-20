@@ -8,11 +8,10 @@ export class Favorite extends Component {
     this.props.isLoggedIn();
     if (!this.props.auth) {
       this.props.history.push("/");
+      return;
     }
-    if (this.props.userMovieType !== "favorite") {
-      this.props.getUserFavMovies();
-      this.props.movie_type("favorite", "userMovie");
-    }
+    this.props.getUserFavMovies();
+    this.props.movie_type("favorite");
   }
   render() {
     const fav_Movies = this.props.movies || [];
@@ -22,7 +21,7 @@ export class Favorite extends Component {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  movies: state.movies.fav_movies,
+  movies: state.movies.movies,
   pages: state.movies.total_pages,
   userMovieType: state.movies.userMovieType,
 });

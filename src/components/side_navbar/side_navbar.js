@@ -14,13 +14,9 @@ export class side_navbar extends Component {
 
   getDetail = (e, value) => {
     this.resetSideLinkColor();
-    if (this.props.movieType === value) {
-      this.props.history.push("/");
-    } else {
       this.props.addMovies(value, 1);
       this.props.movie_type(value);
       this.props.history.push("/");
-    }
     e.currentTarget.style.color = "#2176FF";
   };
   getUserFavMovies = (e) => {

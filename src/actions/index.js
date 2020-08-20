@@ -22,19 +22,12 @@ export const addMovies = (movie, page_number) => {
       });
   };
 };
-export const movie_type = (type, userType) => {
+export const movie_type = (type) => {
   return (dispatch) => {
-    if (userType) {
-      dispatch({
-        type: "ADD_USER_MOVIE_TYPE",
-        payload: type,
-      });
-    } else {
-      dispatch({
-        type: "ADD_MOVIE_TYPE",
-        payload: type,
-      });
-    }
+    dispatch({
+      type: "ADD_MOVIE_TYPE",
+      payload: type,
+    });
   };
 };
 export const isLoggedIn = () => {
