@@ -3,9 +3,10 @@ import thunk from "redux-thunk";
 import allReducers from "./reducers";
 const initialState = {};
 const middleware = [thunk];
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   allReducers,
   initialState,
-  compose(applyMiddleware(...middleware))
+  composeEnhancer(applyMiddleware(...middleware))
 );
 export default store;
