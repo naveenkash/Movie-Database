@@ -14,7 +14,10 @@ export class Pagination extends React.Component {
       paginated: false,
     };
     this.unSubscribe = store.subscribe(() => {
-      if (store.getState().movies.total_pages < 10) {
+      if (
+        store.getState().movies.total_pages > 1 &&
+        store.getState().movies.total_pages < 10
+      ) {
         this.setState({
           pageNumber: new Array(this.props.pages)
             .fill(null)

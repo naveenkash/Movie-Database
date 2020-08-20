@@ -1,45 +1,46 @@
 import React, { Component } from "react";
 import "./App.css";
-import Header from "./components/header";
-import Movies from "./components/movies/movies";
-import MovieDetail from "./components/movies/movie_detail";
 import { connect } from "react-redux";
-import { isLoggedIn } from "../src/actions";
+import { isLoggedIn, addMovies, movie_type } from "../src/actions";
+import MainLayout from "./components/layout/main";
+import SignUp from "./components/auth/signup";
+import Login from "./components/auth/login";
+import Favorite from "./components/favorite/favorite";
+import { Switch, Route, Redirect } from "react-router-dom";
+import Navbar from "./components/layout/navbar";
 export class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      showDetail: false,
-    };
     this.props.isLoggedIn();
+    this.props.addMovies("popular", 1);
+    this.props.movie_type("popular");
   }
 
-  showDetail = (showMovieDetail) => {
-    this.setState({ showDetail: showMovieDetail });
-  };
-  setMovie = (movie) => {
-    this.setState({ movie: movie });
-  };
-  close = (closeDetail) => {
-    this.setState({ showDetail: closeDetail });
-  };
   render() {
     return (
       <div className="App">
-        <Header />
-        <Movies detail={this.showDetail} movie={this.setMovie} />
-        {(() => {
-          if (!this.state.showDetail) {
-            return null;
-          } else {
-            return (
-              <MovieDetail closeDetail={this.close} movie={this.state.movie} />
-            );
-          }
-        })()}
+        <Navbar />
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <MainLayout movies={this.props.movies} pages={this.props.pages} />
+            )}
+          ></Route>
+          <Route path="/signup" render={() => <SignUp />}></Route>
+          <Route path="/login" render={() => <Login />}></Route>
+          <Route path="/favorite" render={() => <Favorite />}></Route>
+          <Route render={() => <Redirect to="/" />}></Route>
+        </Switch>
       </div>
     );
   }
 }
-
-export default connect(null, { isLoggedIn })(App);
+const mapStateToProps = (state) => ({
+  movies: state.movies.movies,
+  pages: state.movies.total_pages,
+});
+export default connect(mapStateToProps, { isLoggedIn, addMovies, movie_type })(
+  App
+);

@@ -2,17 +2,13 @@ import React, { Component } from "react";
 import "./side_navbar.css";
 import "../../animate.css";
 import { connect } from "react-redux";
-import {
-  addMovies,
-  getUserMovies,
-  isLoggedIn,
-  movie_type,
-} from "../../actions";
+import { addMovies, movie_type } from "../../actions";
+import { withRouter } from "react-router-dom";
 
 export class side_navbar extends Component {
   constructor(props) {
     super(props);
-    this.state = { showAccount: true, showCat: true, auth: this.props.auth };
+    this.state = { showAccount: true, showCat: true };
   }
 
   getDetail = (e, value) => {
@@ -21,19 +17,25 @@ export class side_navbar extends Component {
       const element = side_li[i];
       element.style.color = "rgb(53, 53, 53)";
     }
-    this.props.addMovies(value, 1);
-    this.props.movie_type(value);
+    if (this.props.movieType === value) {
+      this.props.history.push("/");
+    } else {
+      this.props.addMovies(value, 1);
+      this.props.movie_type(value);
+      this.props.history.push("/");
+    }
     e.target.style.color = "black";
   };
-  getUserMovies = (e, value, type) => {
+  getUserFavMovies = (e) => {
     var side_li = document.querySelectorAll(".side_link");
     for (let i = 0; i < side_li.length; i++) {
       const element = side_li[i];
       element.style.color = "rgb(53, 53, 53)";
     }
-    this.props.getUserMovies(type);
+    this.props.history.push("/favorite");
     e.target.style.color = "black";
   };
+  getUserWatchlistMovies = (e) => {};
   hideAcc = (e) => {
     e.preventDefault();
     this.setState({ showAccount: !this.state.showAccount });
@@ -139,7 +141,7 @@ export class side_navbar extends Component {
                       <li
                         className="side_link"
                         onClick={(e) => {
-                          this.getUserMovies(e, "watchlist");
+                          this.getUserWatchlistMovies(e);
                         }}
                       >
                         <span>Watchlist</span>
@@ -147,7 +149,7 @@ export class side_navbar extends Component {
                       <li
                         className="side_link"
                         onClick={(e) => {
-                          this.getUserMovies(e, "favorite");
+                          this.getUserFavMovies(e);
                         }}
                       >
                         <span>Favorite</span>
@@ -166,11 +168,12 @@ export class side_navbar extends Component {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  movieType: state.movies.type,
 });
 
-export default connect(mapStateToProps, {
-  addMovies,
-  getUserMovies,
-  isLoggedIn,
-  movie_type,
-})(side_navbar);
+export default withRouter(
+  connect(mapStateToProps, {
+    addMovies,
+    movie_type,
+  })(side_navbar)
+);

@@ -1,7 +1,11 @@
 import jwt from "jsonwebtoken";
 var API_KEY = process.env.REACT_APP_API_KEY;
 var JWT_ACCESS_TOKEN_SECERET = process.env.REACT_APP_JWT_ACCESS_TOKEN_SECERET;
+var token = localStorage.getItem("token");
 export const addMovies = (movie, page_number) => {
+  if (movie === "favorite") {
+    return getUserFavMovies(page_number);
+  }
   return (dispatch) => {
     fetch(
       `https://api.themoviedb.org/3/movie/${movie}?api_key=${API_KEY}&language=en-US&page=${page_number}`
@@ -18,12 +22,19 @@ export const addMovies = (movie, page_number) => {
       });
   };
 };
-export const movie_type = (type) => {
+export const movie_type = (type, userType) => {
   return (dispatch) => {
-    dispatch({
-      type: "ADD_TYPE",
-      payload: type,
-    });
+    if (userType) {
+      dispatch({
+        type: "ADD_USER_MOVIE_TYPE",
+        payload: type,
+      });
+    } else {
+      dispatch({
+        type: "ADD_MOVIE_TYPE",
+        payload: type,
+      });
+    }
   };
 };
 export const isLoggedIn = () => {
@@ -78,25 +89,27 @@ export const sliderMovies = () => {
       });
   };
 };
-export const getUserMovies = (type) => {
+export const getUserFavMovies = (page_number) => {
+  let page = page_number || 1;
   return (dispatch) => {
-    fetch(`http://localhost:8080/user/movies?type=${type}`, {
-      headers: {
-        "content-type": "application/json",
-        Accept: "application/json",
-      },
-    })
+    fetch(
+      `https://immense-coast-18153.herokuapp.com/movie/favorite/all?page=${page}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.err) {
           alert(data.err);
           return;
         }
-        if (data.results.length <= 0) {
-          return;
-        }
         dispatch({
-          type: "ADD_ACCOUNT_DETAIL",
+          type: "ADD_USER_FAV_MOVIES",
           payload: data,
         });
       })

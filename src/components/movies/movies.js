@@ -1,28 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addMovies, movie_type } from "../../actions";
-import store from "../../store";
 import "./movie.css";
 import Pagination from "./pagination";
 export class movies extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      movies: this.props.movies,
-      account_state: [],
+      token: localStorage.getItem("token"),
     };
-    this.unSubscribe = store.subscribe(() => {
-      if (store.getState().movies.movies.length >= 1) {
-        this.setState({ movies: store.getState().movies.movies });
-      }
-    });
-  }
-  componentDidMount() {
-    this.props.addMovies("popular", 1);
-    this.props.movie_type("popular");
-  }
-  componentWillUnmount() {
-    this.unSubscribe();
   }
   seeDetail = (movie) => {
     var showMovieDetail = true;
@@ -30,12 +15,43 @@ export class movies extends Component {
     this.props.movie(movie);
   };
   addToWatchList = (movie) => {};
-  addToFavorite = (movie) => {};
+  addToFavorite = async (e, movie) => {
+    e.persist();
+    try {
+      const res = await fetch(
+        "https://immense-coast-18153.herokuapp.com/movie/favorite/update",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${this.state.token}`,
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(movie),
+        }
+      );
+      const data = await res.json();
+      if (data.err) {
+        alert(data.err);
+        return;
+      }
+      if (data.ok) {
+        e.target.style.color = "red";
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   render() {
     return (
       <div className="movies">
         <div className="movie_wrapper">
+          {(() => {
+            if (this.props.movies.length === 0) {
+              return "No movie present";
+            }
+          })()}
           {this.props.movies.map((movie) => (
             <div key={movie.id} className="movie_container">
               <div
@@ -66,7 +82,7 @@ export class movies extends Component {
                     id="favorite"
                     title="Add To Favorite"
                     onClick={(e) => {
-                      this.addToFavorite(movie);
+                      this.addToFavorite(e, movie);
                     }}
                   >
                     <svg
@@ -134,9 +150,7 @@ export class movies extends Component {
           ))}
         </div>
         {(() => {
-          if (!this.props.pages) {
-            return null;
-          } else if (this.props.pages <= 1) {
+          if (!this.props.pages || this.props.pages <= 1) {
             return null;
           } else {
             return <Pagination />;
@@ -146,9 +160,5 @@ export class movies extends Component {
     );
   }
 }
-const mapStateToProps = (state) => ({
-  movies: state.movies.movies,
-  pages: state.movies.total_pages,
-});
 
-export default connect(mapStateToProps, { addMovies, movie_type })(movies);
+export default connect(null, {})(movies);

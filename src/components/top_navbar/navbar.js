@@ -38,7 +38,7 @@ export class navbar extends Component {
     this.props.isLoggedIn();
   };
   burgerClicked = () => {
-      this.props.clicked();
+    this.props.clicked();
   };
   render() {
     return (

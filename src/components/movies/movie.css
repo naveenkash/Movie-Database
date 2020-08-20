@@ -105,6 +105,9 @@
 #watchlist:hover {
   color: rgb(0, 140, 255);
 }
+#rating svg {
+  width: 19px;
+}
 #rating:hover {
   cursor: default;
 }
