@@ -12,17 +12,13 @@ export class header extends Component {
   closeSideNav = () => {
     this.setState({ open: false }, () => {});
   };
+
   render() {
     return (
       <div>
         <div className="header">
           <Navbar clicked={this.openSideNav} />
-          {(() => {
-            if (!this.state.open) {
-              return null;
-            }
-            return <SideNavbar closeNav={this.closeSideNav} />;
-          })()}
+          <SideNavbar closeNav={this.closeSideNav} open={this.state.open} />
         </div>
       </div>
     );

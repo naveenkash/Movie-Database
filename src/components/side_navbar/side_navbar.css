@@ -32,8 +32,8 @@
   width: 100%;
   height: auto;
   background: rgb(255, 255, 255);
-  padding-top: 35px;
-  padding-bottom: 35px;
+  padding-top: 25px;
+  padding-bottom: 25px;
   text-align: center;
   position: relative;
 }
@@ -71,60 +71,56 @@
 .side_category_head {
   font-weight: 700;
   letter-spacing: 0.1em;
-  color: rgb(0, 0, 0);
+  color: #000000;
   font-size: 24px;
   font-family: "Staatliches", cursive;
-  margin-bottom: 25px;
+  margin-bottom: 5px;
   cursor: pointer;
   position: relative;
 }
 
-.side_category_head::after {
-  content: url('data:image/svg+xml; utf8, <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sort-down" class="svg-inline--fa fa-sort-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z"></path></svg>');
-  -webkit-mask: url("./sort-down-solid.svg") no-repeat 50% 50%;
-  mask: url("./sort-down-solid.svg") no-repeat 50% 50%;
-  -webkit-mask-size: cover;
-  mask-size: cover;
-  display: inline-block;
-  width: 10px;
-  height: 15px;
+.side_category_head span {
+  width: 20px;
+  height: 20px;
   position: absolute;
   right: 0;
   top: 50%;
-  transform: translate(0, -50%);
-  background-color: rgb(0, 0, 0);
+  display: grid;
+  place-content: center;
+  transition: 0.3s;
 }
 
 .side_category ul {
   padding: 0;
   margin: 0;
+  overflow: hidden;
 }
 
 .side_category ul li {
   list-style: none;
-  padding: 13px;
   font-family: "Staatliches", cursive;
   width: 100%;
-  margin: 7px 0;
   font-size: 18px;
-  color: rgb(53, 53, 53);
+  color: rgb(82 91 92);
   letter-spacing: 0.05em;
   cursor: pointer;
 }
 .side_category ul li span {
   display: inline-block;
-  border-bottom: 1px solid transparent;
+  padding: 8px 16px;
+  border-radius: 50px;
 }
 
 #pop {
-  color: rgb(0, 0, 0);
+  color: #2176ff;
 }
 
 .side_category ul li:hover {
   color: rgb(0, 0, 0) !important;
 }
 .side_category ul li:hover span {
-  border-bottom: 1px solid black;
+  color: #2176ff;
+  background: #33a2fd23;
 }
 #mov {
   overflow: hidden;
@@ -134,8 +130,54 @@
 #acc {
   overflow: hidden;
   transition: 0.3s;
+  margin-top: 5px;
+}
+.hideSideBar {
+  display: none;
+}
+.closeSideNavBar {
+  display: block;
+  animation-name: fadeInRight2;
+}
+.openSideNavBar {
+  display: block;
+  animation-name: fadeInLeft1;
+}
+.showMenu {
+  max-height: 231px;
+  transition: max-height 0.2s ease-in;
+}
+.hideMenu {
+  max-height: 0;
+  transition: max-height 0.2s ease-in;
+}
+.rotateArrow {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+.rotateArrowBack {
+  transform: translate(-50%, -50%) rotate(-180deg);
 }
 
+@keyframes fadeInLeft1 {
+  0% {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateZ(0px);
+  }
+}
+@keyframes fadeInRight2 {
+  0% {
+    opacity: 1;
+    transform: translateZ(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+}
 @media only screen and (max-width: 550px) {
   .side_navbar {
     width: 100%;
