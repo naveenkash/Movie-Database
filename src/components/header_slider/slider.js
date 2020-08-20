@@ -44,8 +44,10 @@ export class slider extends Component {
     };
   }
   componentDidMount() {
-    this.props.genreIds();
-    this.props.sliderMovies();
+    if (this.props.slideMovies.length === 0) {
+      this.props.genreIds();
+      this.props.sliderMovies();
+    }
   }
 
   render() {
@@ -67,7 +69,7 @@ export class slider extends Component {
     return (
       <div className="header-slider">
         <Slider {...settings}>
-          {this.props.allMovies.slice(0, 10).map((movie) => (
+          {this.props.slideMovies.slice(0, 10).map((movie) => (
             <div key={movie.id} className="header-slide-container">
               <div className="header-slide">
                 <div className="overlay"></div>
@@ -113,7 +115,7 @@ export class slider extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  allMovies: state.movies.sliderMovies,
+  slideMovies: state.movies.sliderMovies,
   genres: state.genreIds.genreIds,
 });
 
