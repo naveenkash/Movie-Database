@@ -14,9 +14,9 @@ export class side_navbar extends Component {
 
   getDetail = (e, value) => {
     this.resetSideLinkColor();
-      this.props.addMovies(value, 1);
-      this.props.movie_type(value);
-      this.props.history.push("/");
+    this.props.addMovies(value, 1);
+    this.props.movie_type(value);
+    this.props.history.push("/");
     e.currentTarget.style.color = "#2176FF";
   };
   getUserFavMovies = (e) => {
@@ -140,45 +140,49 @@ export class side_navbar extends Component {
               {(() => {
                 if (this.props.auth) {
                   return (
-                    <h1
-                      id="acc"
-                      onClick={this.hideAcc}
-                      className="side_category_head"
-                    >
-                      Account
-                      <span
-                        className={`${
-                          this.state.showAccount ? "rotateArrow" : "rotateArrowBack"
+                    <div className="side_category">
+                      <h1
+                        id="acc"
+                        onClick={this.hideAcc}
+                        className="side_category_head"
+                      >
+                        Account
+                        <span
+                          className={`${
+                            this.state.showAccount
+                              ? "rotateArrow"
+                              : "rotateArrowBack"
+                          }`}
+                        >
+                          <i className="fas fa-angle-up"></i>
+                        </span>
+                      </h1>
+                      <ul
+                        className={`animate__animated ${
+                          this.state.showAccount ? "showMenu" : "hideMenu"
                         }`}
                       >
-                        <i className="fas fa-angle-up"></i>
-                      </span>
-                    </h1>
+                        <li
+                          className="side_link"
+                          onClick={(e) => {
+                            this.getUserWatchlistMovies(e);
+                          }}
+                        >
+                          <span>Watchlist</span>
+                        </li>
+                        <li
+                          className="side_link"
+                          onClick={(e) => {
+                            this.getUserFavMovies(e);
+                          }}
+                        >
+                          <span>Favorite</span>
+                        </li>
+                      </ul>
+                    </div>
                   );
                 }
               })()}
-              <ul
-                className={`animate__animated ${
-                  this.state.showAccount ? "showMenu" : "hideMenu"
-                }`}
-              >
-                <li
-                  className="side_link"
-                  onClick={(e) => {
-                    this.getUserWatchlistMovies(e);
-                  }}
-                >
-                  <span>Watchlist</span>
-                </li>
-                <li
-                  className="side_link"
-                  onClick={(e) => {
-                    this.getUserFavMovies(e);
-                  }}
-                >
-                  <span>Favorite</span>
-                </li>
-              </ul>
             </div>
           </div>
         </div>
