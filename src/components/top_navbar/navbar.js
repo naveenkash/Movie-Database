@@ -4,35 +4,6 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { isLoggedIn } from "../../actions";
 export class navbar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      scrolled: false,
-    };
-  }
-  componentDidMount() {
-    window.addEventListener("scroll", this.handleScroll);
-  }
-  componentWillUnmount() {
-    window.removeEventListener("scroll", this.handleScroll);
-  }
-  handleScroll = () => {
-    if (
-      document.body.scrollTop > 45 ||
-      document.documentElement.scrollTop > 45
-    ) {
-      this.setState({ scrolled: true });
-    } else {
-      this.setState({ scrolled: false });
-    }
-  };
-  scroll = () => {
-    if (this.state.scrolled) {
-      return {
-        boxShadow: "0px 3px 10px -1px rgba(204,204,204,0.75)",
-      };
-    }
-  };
   logOut = () => {
     localStorage.removeItem("token");
     this.props.isLoggedIn();
@@ -42,7 +13,7 @@ export class navbar extends Component {
   };
   render() {
     return (
-      <div className="navbar" style={this.scroll()}>
+      <div className="navbar">
         <div className="navbar-wrapper">
           <div className="navbar-container">
             <div
