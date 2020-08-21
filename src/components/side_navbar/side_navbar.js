@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import "./side_navbar.css";
 import "../../animate.css";
 import { connect } from "react-redux";
-import { addMovies, movie_type } from "../../actions";
-import { withRouter } from "react-router-dom";
+import { addMovies, movie_type, isLoggedIn } from "../../actions";
+import { withRouter, Link } from "react-router-dom";
 
 export class side_navbar extends Component {
   constructor(props) {
@@ -42,6 +42,10 @@ export class side_navbar extends Component {
   };
   closeSideNav = () => {
     this.props.closeNav();
+  };
+  logOut = () => {
+    localStorage.removeItem("token");
+    this.props.isLoggedIn();
   };
   render() {
     if (this.props.open) {
@@ -184,6 +188,38 @@ export class side_navbar extends Component {
                 }
               })()}
             </div>
+
+            {(() => {
+              if (!this.props.auth) {
+                return (
+                  <div className="side_auth_wrapper">
+                    <div className="side_auth_container">
+                      <div className="side_auth">
+                        <Link to="/signup">Signup</Link>
+                      </div>
+                      <div className="side_auth">
+                        <Link to="/login">Login</Link>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+              return (
+                <div className="side_auth_wrapper">
+                  <div className="side_auth_container">
+                    <div className="side_auth">
+                      <span
+                        onClick={() => {
+                          this.logOut();
+                        }}
+                      >
+                        Log Out
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
           </div>
         </div>
       </div>
@@ -200,5 +236,6 @@ export default withRouter(
   connect(mapStateToProps, {
     addMovies,
     movie_type,
+    isLoggedIn,
   })(side_navbar)
 );
