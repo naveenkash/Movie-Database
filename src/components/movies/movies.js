@@ -14,6 +14,26 @@ export class movies extends Component {
     this.props.detail(showMovieDetail);
     this.props.movie(movie);
   };
+  convertToReadableDate = (date) => {
+    let months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    let spl = date.split("-");
+    let m = spl[1] < 10 ? spl[1].split("")[1] : spl[1];
+    let d = spl[2] < 10 ? spl[2].split("")[1] : spl[2];
+    return `${d} ${months[m]}, ${spl[0]}`;
+  };
   addToWatchList = (movie) => {};
   addToFavorite = async (e, movie) => {
     e.persist();
@@ -75,7 +95,7 @@ export class movies extends Component {
                   >
                     {movie.title}
                   </h4>
-                  <p>{movie.release_date.split("-")[0]}</p>
+                  <p>{this.convertToReadableDate(movie.release_date)}</p>
                 </div>
                 <div className="movie_rating">
                   <i
