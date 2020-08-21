@@ -15,6 +15,9 @@ export class movies extends Component {
     this.props.movie(movie);
   };
   convertToReadableDate = (date) => {
+    if (!date) {
+      return "";
+    }
     let months = [
       "Jan",
       "Feb",
@@ -37,6 +40,10 @@ export class movies extends Component {
   addToWatchList = (movie) => {};
   addToFavorite = async (e, movie) => {
     e.persist();
+    if (!this.props.auth) {
+      alert("Please login or signup to add to favorite");
+      return;
+    }
     try {
       const res = await fetch(
         "https://immense-coast-18153.herokuapp.com/movie/favorite/update",
@@ -57,6 +64,8 @@ export class movies extends Component {
       }
       if (data.ok) {
         e.target.style.color = "red";
+      } else if (data.removed) {
+        e.target.style.color = "black";
       }
     } catch (error) {
       alert(error.message);
@@ -181,4 +190,7 @@ export class movies extends Component {
   }
 }
 
-export default connect(null, {})(movies);
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+export default connect(mapStateToProps, {})(movies);
